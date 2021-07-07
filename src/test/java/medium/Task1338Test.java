@@ -45,7 +45,7 @@ class Task1338Test {
 
     class Solution {
 
-        public int minSetSize(int[] arr) {
+        public int minSetSize2(int[] arr) {
             Map<Integer, Integer> freqs = new HashMap<>();
             for (int j : arr) {
                 freqs.put(j, freqs.getOrDefault(j, 0) + 1);
@@ -60,6 +60,27 @@ class Task1338Test {
                     return setSize;
             }
             return setSize;
+        }
+
+        public int minSetSize(int[] arr) {
+            int len = arr.length;
+            Map<Integer, Integer> hm = new HashMap<>();
+            for (int i : arr) {
+                hm.put(i, hm.getOrDefault(i, 0) + 1);
+            }
+            int[] freq = new int[len + 1];
+            for (int value : hm.values())
+                ++freq[value];
+
+            int arrSize = 0, setSize = 0;
+            for (int k = len; k > 0; k--) {
+                while (freq[k]-- > 0) {
+                    arrSize += k;
+                    setSize++;
+                    if (arrSize >= len / 2) return setSize;
+                }
+            }
+            return setSize;   //Dummy val
         }
     }
 }
