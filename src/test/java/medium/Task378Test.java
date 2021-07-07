@@ -1,8 +1,6 @@
 package medium;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,15 +26,13 @@ class Task378Test {
 
     class Solution {
         public int kthSmallest(int[][] matrix, int k) {
+            int[] ans = new int[matrix.length * matrix.length];
+            for (int i = 0, t = 0; i < matrix.length; ++i)
+                for (int j = 0; j < matrix[0].length; ++j)
+                    ans[t++] = (matrix[i][j]);
 
-            k -= 1;
-            List<Integer> ans = new ArrayList<>(matrix.length * matrix.length);
-            for (int i = 0; i < matrix.length; i++)
-                for (int j = 0; j < matrix[0].length; j++)
-                    ans.add(matrix[i][j]);
-
-            Collections.sort(ans);
-            return ans.get(k);
+            Arrays.sort(ans);
+            return ans[k - 1];
         }
     }
 }
