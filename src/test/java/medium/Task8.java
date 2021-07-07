@@ -32,25 +32,23 @@ class Task8 {
             BigInteger max = BigInteger.valueOf(Integer.MAX_VALUE);
 
             s = s.trim();
-            if (s.isEmpty())
-                return 0;
-            int start = 0, end = 0, sign = 0;
+            if (s.isEmpty()) return 0;
+
+            int start = 0, end = 0;
+            boolean sign = false;
             if (s.charAt(0) == '-' || s.charAt(0) == '+') {
                 start = 1;
-                ++sign;
+                sign = true;
             }
             for (end = start; end < s.length(); ++end) {
                 char ch = s.charAt(end);
                 if (!Character.isDigit(ch))
                     break;
             }
-            if (end == start)
-                return 0;
-            if (sign > 0)
-                --start;
+            if (end == start) return 0;
+            if (sign) --start;
             s = s.substring(start, end);
-            if (s.isEmpty())
-                return 0;
+            if (s.isEmpty()) return 0;
 
             BigInteger val = new BigInteger(s);
             if (val.compareTo(max) > 0)
