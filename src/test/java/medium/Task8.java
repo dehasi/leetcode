@@ -1,6 +1,5 @@
 package medium;
 
-import java.math.BigInteger;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,37 +25,38 @@ class Task8 {
         assertEquals(result, 0);
     }
 
+    @Test void test4() {
+
+        assertEquals(solution.myAtoi("2147483647"), Integer.MAX_VALUE);
+        assertEquals(solution.myAtoi("2147483648"), Integer.MAX_VALUE);
+        assertEquals(solution.myAtoi("-2147483648"), Integer.MIN_VALUE);
+        assertEquals(solution.myAtoi("-2147483647"), -2147483647);
+    }
+
     static class Solution {
         public int myAtoi(String s) {
-            BigInteger min = BigInteger.valueOf(Integer.MIN_VALUE);
-            BigInteger max = BigInteger.valueOf(Integer.MAX_VALUE);
-
             s = s.trim();
             if (s.isEmpty()) return 0;
 
-            int start = 0, end = 0;
-            boolean sign = false;
-            if (s.charAt(0) == '-' || s.charAt(0) == '+') {
+            int start = 0; int sign = 1;
+            if (s.charAt(0) == '-') {
+                sign = -1; start = 1;
+            } else if (s.charAt(0) == '+') {
                 start = 1;
-                sign = true;
             }
-            for (end = start; end < s.length(); ++end) {
-                char ch = s.charAt(end);
-                if (!Character.isDigit(ch))
-                    break;
+
+            long result = 0;
+            for (int i = start; i < s.length(); ++i) {
+                char ch = s.charAt(i);
+                if (!Character.isDigit(ch)) break;
+                result *= 10;
+                result += ch - '0';
+
+                if (result > Integer.MAX_VALUE)
+                    return sign == -1 ? Integer.MIN_VALUE : Integer.MAX_VALUE;
             }
-            if (end == start) return 0;
-            if (sign) --start;
-            s = s.substring(start, end);
-            if (s.isEmpty()) return 0;
 
-            BigInteger val = new BigInteger(s);
-            if (val.compareTo(max) > 0)
-                val = max;
-            if (val.compareTo(min) < 0)
-                val = min;
-
-            return val.intValue();
+            return sign * (int)result;
         }
     }
 }
