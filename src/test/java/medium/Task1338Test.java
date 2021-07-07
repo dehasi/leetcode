@@ -48,8 +48,7 @@ class Task1338Test {
         public int minSetSize(int[] arr) {
             Map<Integer, Integer> freqs = new HashMap<>();
             for (int j : arr) {
-                if (!freqs.containsKey(j)) freqs.put(j, 1);
-                else freqs.put(j, freqs.get(j) + 1);
+                freqs.put(j, freqs.getOrDefault(j, 0) + 1);
             }
 
             List<Integer> sizes = freqs.values().stream().sorted(reverseOrder()).collect(toList());
