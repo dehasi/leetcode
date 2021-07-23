@@ -40,17 +40,13 @@ public class Task235_LCAinBinaryTreeTest {
 
     class Solution {
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-            // 6 2 4 3
-            // 6 8 7
             List<Integer> path1 = path(root, p.val);
             List<Integer> path2 = path(root, q.val);
 
             int n = Math.min(path1.size(), path2.size());
-            for (int i = 0; i < n; ++i) {
-                if (!path1.get(i).equals(path2.get(i))) {
+            for (int i = 0; i < n; ++i)
+                if (!path1.get(i).equals(path2.get(i)))
                     return new TreeNode(path1.get(i - 1));
-                }
-            }
             return new TreeNode(path1.get(n - 1));
         }
 
