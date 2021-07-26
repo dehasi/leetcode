@@ -26,6 +26,12 @@ public class TODO_Task915_PartitionArrayIntoDisjointIntervals_Test {
         assertThat(result).isEqualTo(1);
     }
 
+    @Test void test4() {
+        int result = solution.partitionDisjoint(new int[] {6, 0, 8, 30, 37, 6, 75, 98, 39, 90, 63, 74, 52, 92, 64});
+
+        assertThat(result).isEqualTo(2);
+    }
+
     class Solution {
         public int partitionDisjoint(int[] nums) {
             int n = nums.length;
