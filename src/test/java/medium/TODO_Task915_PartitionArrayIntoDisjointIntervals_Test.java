@@ -1,6 +1,5 @@
 package medium;
 
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,15 +27,17 @@ public class TODO_Task915_PartitionArrayIntoDisjointIntervals_Test {
     class Solution {
         public int partitionDisjoint(int[] nums) {
             int n = nums.length;
-            int pow = 1;
-            while (pow < n) pow *= 2;
+            int[] rmin = new int[n];
+            rmin[n-1] = nums[n-1];
+            for (int i = n-2; i >0; --i) {
+                rmin[i] = Math.min(rmin[i-1], nums[i]);
+            }
+            rmin[0] = Math.min(rmin[1], nums[0]);
 
-            int[] minTree = new int[pow * 2];
-            Arrays.fill(minTree, Integer.MAX_VALUE);
-            // [9,9,9,9,1,2,3,4]
-            // [9,9,1,3,1,2,3,4]
-            // [9,1,1,3,1,2,3,4]
-            // [0,1,2,3,4,5,6,7]
+            for (int i = n-1; i >= 0; --i) {
+                if (nums[i] > rmin[i])
+                    return i;
+            }
             return 0;
         }
     }
