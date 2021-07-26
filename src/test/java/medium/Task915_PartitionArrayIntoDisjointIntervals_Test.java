@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TODO_Task915_PartitionArrayIntoDisjointIntervals_Test {
+public class Task915_PartitionArrayIntoDisjointIntervals_Test {
 
     private final Solution solution = new Solution();
 
