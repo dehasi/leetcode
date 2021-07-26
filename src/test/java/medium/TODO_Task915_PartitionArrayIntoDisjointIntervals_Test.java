@@ -45,7 +45,7 @@ public class TODO_Task915_PartitionArrayIntoDisjointIntervals_Test {
                 lmax[i] = Math.max(lmax[i - 1], nums[i]);
 
             for (int i = 0; i < n - 1; ++i) {
-                if (lmax[i] < rmin[i + 1])
+                if (lmax[i] <= rmin[i + 1])
                     return i + 1;
             }
             return n - 1;
