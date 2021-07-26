@@ -40,7 +40,7 @@ public class TODO_Task915_PartitionArrayIntoDisjointIntervals_Test {
                 if (nums[i] > rmin[i])
                     return i;
             }
-            return 0;
+            return -42;
         }
     }
 }
