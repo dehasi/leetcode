@@ -21,20 +21,22 @@ public class TODO_Task915_PartitionArrayIntoDisjointIntervals_Test {
     }
 
     @Test void test3() {
+        int result = solution.partitionDisjoint(new int[] {1, 1});
 
+        assertThat(result).isEqualTo(1);
     }
 
     class Solution {
         public int partitionDisjoint(int[] nums) {
             int n = nums.length;
             int[] rmin = new int[n];
-            rmin[n-1] = nums[n-1];
-            for (int i = n-2; i >0; --i) {
-                rmin[i] = Math.min(rmin[i-1], nums[i]);
+            rmin[n - 1] = nums[n - 1];
+            for (int i = n - 2; i > 0; --i) {
+                rmin[i] = Math.min(rmin[i - 1], nums[i]);
             }
             rmin[0] = Math.min(rmin[1], nums[0]);
 
-            for (int i = n-1; i >= 0; --i) {
+            for (int i = n - 1; i >= 0; --i) {
                 if (nums[i] > rmin[i])
                     return i;
             }
