@@ -48,8 +48,8 @@ public class RotateArrayTest {
 
             for (int i = k; i < k + (n - k + 1) / 2; ++i) {
                 int t = nums[i];
-                nums[i] = nums[n - 1 - i - k];
-                nums[n - 1 - i - k] = t;
+                nums[i] = nums[n - 1 - i + k];
+                nums[n - 1 - i + k] = t;
             }
         }
     }
