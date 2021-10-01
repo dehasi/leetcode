@@ -1,4 +1,4 @@
-package algs4Part1.ch1;
+package algs4.week1;
 
 public class HelloGoodbye {
     public static void main(String[] args) {

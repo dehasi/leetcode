@@ -1,4 +1,4 @@
-package algs4Part1.ch1;
+package algs4.week1;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdRandom;
