@@ -1,0 +1,147 @@
+:eqnums:
+:stem: latexmath
+
+=== Question 1
+*Social network connectivity.*
+Given a social network containing `n` members and a log file containing `m` timestamps at which times pairs of members formed friendships, design an algorithm to determine the earliest time at which all members are connected (i.e., every member is a friend of a friend of a friend ... of a friend).
+Assume that the log file is sorted by timestamp and that friendship is an equivalence relation.
+The running time of your algorithm should be `mlog(n)` or better and use extra space proportional to `n`.
+
+*Answer:* All members are connected if a tree has only one root.
+Therefore, the size if the three is `n`.
+We have to scan the log file, union and check the size of the root.
+when `sz[root[p]] == n`, then we get all connections.
+
+Union still take `log(n)` time. We'll add only one check ` if sz[i] == sz.length || sz[j] == sz.length` which won't affect complexity.
+
+As we have max `m` unions, then in the worse case we'll make `m*log(n)` operations.
+
+=== Question 2
+*Union-find with specific canonical element.*
+Add a method `find()` to the union-find data type so that `find(i)` returns the largest element in the connected component containing `i`.
+The operations, `union()`, `connected()`, and `find()` should all take logarithmic time or better.
+
+For example, if one of the connected components is `{1,2,6,9}`, then the `find()` method should return `9` for each of the four elements in the connected components.
+*Note:* `find(1) = find(2) = find(6) = find(9) = 9`.
+
+*Answer:* We have to keep an additional array of max value per root.
+ - initialize `maxVal[]` array as `maxVal[i] = i`.
+
+ - during `union` update it `sz[j] += sz[i]; maxVal[j] = Math.max(maxVal[i],maxVal[i])`
+
+ - during `find`, find the root and return  `maxVal[root(i)]`
+
+`find` only finds a root, it's `log(n)`.
+All other operations are the same => `log(n)`.
+
+=== Question 3
+*Successor with delete.*
+Given a set of `n` integers `S={0,1,...,n−1}` and a sequence of requests of the following form:
+
+- Remove `x` from `S`.
+
+- Find the successor of `x`: the smallest `y` in `S` such that `y ≥ x`.
+
+design a data type so that all operations (except construction)  take logarithmic time or better in the worst case.
+
+*Answer:* We'll keep all integers in an array `s=[1,2,...,n]`,
+where `s[i]` is the successor of `i`; `s[i-1] = s[s[i]]`.
+
+When remove the element, we replace the value if the successor.
+I.e. `n=5; s=[1,2,3,4,5]`. Remove `2`, `s[1] = 2`, `s[2] = 3` => `s[1] = 3`;
+
+Result `n=5; s=[1,3,3,4,5]` => `s[1]` is `3`, because `2` is removed.
+
+But what if we remove `3`? `s[3] = 4`; `s[2] = 3` => `s[2] = s[s[4]]` =>
+`s[2] = 5` => `s=[1,3,5,5,5]`
+In this case we have to search for root
+`while(i != s[i]) i = s[i]`.
+
+*Conclusion:* We still can use "Unio-Find" approach.
+When we remove, we replace our value to the next one.
+
+----
+n=5;
+
+i=[0,1,2,3,4]
+s=[0,1,2,3,4]
+
+remove i=2
+s[i] => s[2] => 2
+root(2+1) => 3
+s[2] = root(3) => s[2] = 3
+
+i=[0,1,2,3,4]
+s=[0,1,3,3,4]
+
+successor i=2
+root(2) = 3 # s[2]=3 => s[3]=3 => 3
+
+remove i=3
+root(3) = 3
+root(3+1) => 4
+s[3] = root(3) = 4;
+
+i=[0,1,2,3,4]
+s=[0,1,3,4,4]
+
+successor i=2
+root(2) = 4 # s[2]=3 => s[3]=4 => s[4]=4 => 4
+----
+
+With path compacting unin-find we can get `log(n)`
+
+
+
+=== Question 1
+*3-SUM in quadratic time.*
+Design an algorithm for the 3-SUM problem that takes time proportional to latexmath:[$n^2$] in the worst case.
+You may assume that you can sort the `n` integers in time proportional to latexmath:[$n^2$] or better.
+
+*Answer:*
+
+- Sort array for ~latexmath:[$n\log{n}$]
+- Fill hashmap `hash[val] = index` for ~latexmath:[$n$]
+- Iterate over array `a` as latexmath:[$ i \in [1..n\]$] and latexmath:[$ j \in [i..n\]$] for ~latexmath:[$n^2$]
+- Check if `hash` contains `-a[i]-a[j]` and if yes, that index is not `i` or `j`
+
+So it gives us ~latexmath:[$n^2$] if we consider that a hast table gives an answer in a constant time.
+
+=== Question 2
+*Search in a bitonic array.*
+An array is _bitonic_ if it is comprised of an increasing sequence of integers followed immediately by a decreasing sequence of integers.
+Write a program that, given a bitonic array of nn distinct integer values, determines whether a given integer is in the array.
+
+Standard version: Use latexmath:[$3lg{n}$] compares in the worst case.
+
+Signing bonus: Use latexmath:[$2lg{n}$] compares in the worst case
+(and prove that no algorithm can guarantee to perform fewer than latexmath:[$2lg{n}$] compares in the worst case).
+
+*Answer:*
+
+- Find a point `p` such as `a[0..p]` is increasing and `a[p+1..n]` is decreasing (kind the peak point) for ~latexmath:[$lg{n}$]
+- Run two binary searches in `a[0..p]` and `a[p+1..n] ~latexmath:[$lg{n}$] each
+
+=== Question 3
+*Egg drop.*
+Suppose that you have an latexmath:[${n}$]-story building (with floors 1 through n) and plenty of eggs.
+An egg breaks if it is dropped from floor latexmath:[$T$] or higher and does not break otherwise.
+Your goal is to devise a strategy to determine the value of  latexmath:[$T$] given the following limitations on the number of eggs and tosses:
+
+- Version 0: 1 egg, latexmath:[$\le T$] tosses.
+
+- Version 1: ~latexmath:[$1\lg{n}$] eggs and ~latexmath:[$1\lg{n}$] tosses.
+
+- Version 2: ~latexmath:[$1\lg{T}$] eggs and ~latexmath:[$2\lg{T}$] tosses.
+
+- Version 3: 2 eggs and  ~latexmath:[$2\sqrt{n}$] tosses.
+
+- Version 4: 2 eggs and  latexmath:[$\le c\sqrt{T}$] tosses for some fixed constant c.
+
+*Answer:*
+
+- Version 0: linear search.
+- Version 1: binary search
+- Version 2: increase floor twice each time.
+- Version 3: Calculate latexmath:[$k = \sqrt{n}$]. increase floor `f += k` till break. Then go linearly the last `k` interval.
+- Version 4: Same as above.

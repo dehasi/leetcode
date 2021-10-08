@@ -1,4 +1,4 @@
-package algs4.week1;
+package algs4.week1.helloworld;
 
 public class HelloGoodbye {
     public static void main(String[] args) {
