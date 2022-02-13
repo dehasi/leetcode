@@ -27,14 +27,29 @@ public class Task567_PermutationInString_Test {
     // [_] Complexity (time, memory):
     class Solution {
 
-        int[] array(String s, int from, int toEx) {
-            int[] letters = new int[26];
-            for (int i = from; i < toEx; ++i)
-                ++letters[s.charAt(i) - 'a'];
-            return letters;
+        public boolean checkInclusion(String s1, String s2) {
+            if(s2.length() < s1.length()) return false;
+
+            int n = s1.length();
+            int[] s1chars = array(s1, 0, n);
+            int[] s2chars = array(s2, 0, n);
+
+            for(int l = 0, r = n; r < s2.length(); ++l, ++r) {
+                if(Arrays.equals(s1chars, s2chars)) return true;
+                --s2chars[s2.charAt(l) - 'a'];
+                ++s2chars[s2.charAt(r) - 'a'];
+            }
+            return Arrays.equals(s1chars, s2chars);
         }
 
-        public boolean checkInclusion(String s1, String s2) {
+        int[] array(String s, int from, int toEx) {
+            int[] chars = new int[26];
+            for(int i = from; i < toEx; ++i)
+                ++chars[s.charAt(i) - 'a'];
+            return chars;
+        }
+
+        public boolean checkInclusion1(String s1, String s2) {
             if (s2.length() < s1.length()) return false;
 
             HashSet<Character> letters = new HashSet<>(26);

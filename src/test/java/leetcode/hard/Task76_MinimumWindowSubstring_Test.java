@@ -9,11 +9,19 @@ public class Task76_MinimumWindowSubstring_Test {
     private final Solution solution = new Solution();
 
     @Test void test1() {
-        assertThat("").isEqualTo("");
+        assertThat(solution.minWindow("ADOBECODEBANC", "ABC")).isEqualTo("BANC");
     }
 
     @Test void test2() {
-        assertThat("").isEqualTo("");
+        assertThat(solution.minWindow("a", "b")).isEqualTo("");
+    }
+
+    @Test void test3() {
+        assertThat(solution.minWindow("ab", "a")).isEqualTo("a");
+    }
+
+    @Test void test4() {
+        assertThat(solution.minWindow("cabwefgewcwaefgcf", "cae")).isEqualTo("cwae");
     }
 
     // [_] Input boundaries:
@@ -27,20 +35,21 @@ public class Task76_MinimumWindowSubstring_Test {
             char[] sset = new char[58];
             char[] tset = new char[58];
 
+
             t.chars().forEach(ch -> ++tset[ch - 'A']);
             s.chars().forEach(ch -> ++sset[ch - 'A']);
-
+            if (!substr(tset, sset)) return "";
             int minR = s.length() - 1, minL = 0;
             int l = 0, r = s.length() - 1;
-            while (l - r > t.length()) {
+            while (l <= r) {
                 --sset[s.charAt(l) - 'A'];
                 ++l;
                 if (substr(tset, sset)) {
                     minR = r; minL = l;
                     continue;
                 } else {
-                    ++sset[s.charAt(l) - 'A'];
                     --l;
+                    ++sset[s.charAt(l) - 'A'];
                 }
                 --sset[s.charAt(r) - 'A'];
                 --r;
@@ -50,10 +59,10 @@ public class Task76_MinimumWindowSubstring_Test {
                 }
                 break;
             }
-            return (minR - minL) < s.length() ? s.substring(minL, minR - minL + 1) : "";
+            return s.substring(minL, minR + 1);
         }
 
-        boolean substr(char[] tset, char[] sset) {
+        private boolean substr(char[] tset, char[] sset) {
             for (int i = 0; i < tset.length; ++i)
                 if (tset[i] > sset[i]) return false;
             return true;
