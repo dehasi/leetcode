@@ -28,23 +28,27 @@ class BinarySearch {
 
     class Solution {
         int lsearch(int x, int... a) {
-            int l = 0, r = a.length;
-            while (r - l > 1) {
+            int l = 0, r = a.length - 1, ans = -1;
+            while (l <= r) {
                 int mid = l + (r - l) / 2;
-                if (a[mid] < x) l = mid;
-                else r = mid;
+                if (a[mid] >= x) {
+                    ans = mid;
+                    r = mid - 1;
+                } else l = mid + 1;
             }
-            return r;
+            return ans;
         }
 
         int rsearch(int x, int... a) {
-            int l = 0, r = a.length;
-            while (r - l > 1) {
+            int l = 0, r = a.length - 1, ans = -1;
+            while (l <= r) {
                 int mid = l + (r - l) / 2;
-                if (a[mid] > x) r = mid;
-                else l = mid;
+                if (a[mid] <= x) {
+                    ans = mid;
+                    l = mid + 1;
+                } else r = mid - 1;
             }
-            return l;
+            return ans;
         }
     }
 }

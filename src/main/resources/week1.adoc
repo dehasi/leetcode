@@ -102,7 +102,7 @@ You may assume that you can sort the `n` integers in time proportional to latexm
 
 - Sort array for ~latexmath:[$n\log{n}$]
 - Fill hashmap `hash[val] = index` for ~latexmath:[$n$]
-- Iterate over array `a` as latexmath:[$ i \in [1..n\]$] and latexmath:[$ j \in [i..n\]$] for ~latexmath:[$n^2$]
+- Iterate over array `StdIn` as latexmath:[$ i \in [1..n\]$] and latexmath:[$ j \in [i..n\]$] for ~latexmath:[$n^2$]
 - Check if `hash` contains `-a[i]-a[j]` and if yes, that index is not `i` or `j`
 
 So it gives us ~latexmath:[$n^2$] if we consider that a hast table gives an answer in a constant time.

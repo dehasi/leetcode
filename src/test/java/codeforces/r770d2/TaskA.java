@@ -1,4 +1,4 @@
-package codeforces;
+package codeforces.r770d2;
 
 import java.io.BufferedReader;
 import java.io.IOException;

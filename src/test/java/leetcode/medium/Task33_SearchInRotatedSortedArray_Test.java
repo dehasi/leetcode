@@ -33,7 +33,19 @@ public class Task33_SearchInRotatedSortedArray_Test {
     }
 
     @Test void test7() {
-        assertThat(solution.search(new int[] {1,3}, 0)).isEqualTo(-1);
+        assertThat(solution.search(new int[] {1, 3}, 0)).isEqualTo(-1);
+    }
+
+    @Test void test8() {
+        assertThat(solution.search(new int[] {1, 3}, 1)).isEqualTo(0);
+    }
+
+    @Test void test9() {
+        assertThat(solution.search(new int[] {5, 1, 3}, 1)).isEqualTo(1);
+    }
+
+    @Test void test10() {
+        assertThat(solution.search(new int[] {3, 1}, 1)).isEqualTo(1);
     }
 
     // [_] Input boundaries:
@@ -43,25 +55,34 @@ public class Task33_SearchInRotatedSortedArray_Test {
         public int search(int[] nums, int target) {
             if (nums == null || nums.length == 0) return -1;
             if (nums.length == 1) return (nums[0] == target) ? 0 : -1;
-            int l = 0, r = nums.length;
+            int l = 0, r = nums.length - 1, min = 0;
 
-            while (l < r) {
+            while (l <= r) {
                 int mid = l + (r - l) / 2;
-                if (nums[l] < nums[mid]) l = mid;
-                else r = mid;
+                if (mid != 0 && nums[mid - 1] > nums[mid]) {
+                    min = mid; break;
+                }
+                if (nums[0] < nums[mid]) {
+                    min = mid;
+                    l = mid + 1;
+                } else {
+                    r = mid - 1;
+                }
             }
 
-            int start = r+1;
-            l = 0; r = nums.length;
-            if (nums[start] <= target && target <= nums[r - 1])
-                l = start;
-            else r = start;
+            if (min == -1 || target < nums[min]) return -1;
 
-            while (l < r) {
+            if (min != 0 && nums[0] <= target && target <= nums[min - 1]) {
+                l = 0; r = min - 1;
+            } else {
+                l = min; r = nums.length - 1;
+            }
+
+            while (l <= r) {
                 int mid = l + (r - l) / 2;
                 if (nums[mid] == target) return mid;
                 if (nums[mid] < target) l = mid + 1;
-                else r = mid;
+                else r = mid - 1;
             }
 
             return -1;
