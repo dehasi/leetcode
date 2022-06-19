@@ -1,14 +1,13 @@
 package leetcode.medium;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
+import static java.util.Collections.emptySet;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class Task1268_SearchSuggestionsSystem_Test {
@@ -42,12 +41,14 @@ class Task1268_SearchSuggestionsSystem_Test {
 
             List<List<String>> result = new ArrayList<>(searchWord.length());
             for (int i = 0; i < searchWord.length(); ++i) {
-                Queue<String> queue = new PriorityQueue<>(String::compareTo);
-                queue.addAll(trie.find(searchWord, i + 1));
-                List<String> res = new ArrayList<>();
-                for (int j = 0; j < 3 && !queue.isEmpty(); ++j)
-                    res.add(queue.poll());
-                result.add(res);
+                //                Queue<String> queue = new PriorityQueue<>(String::compareTo);
+                //                queue.addAll(trie.find(searchWord, i + 1));
+                //                List<String> res = new ArrayList<>();
+                //                for (int j = 0; j < 3 && !queue.isEmpty(); ++j)
+                //                    res.add(queue.poll());
+                //                result.add(res);
+                Set<String> set = trie.find(searchWord, i + 1);
+                result.add(set.stream().sorted().limit(3).collect(toList()));
             }
             return result;
         }
@@ -71,7 +72,7 @@ class Task1268_SearchSuggestionsSystem_Test {
                 Trie cur = this;
                 for (int i = 0; i < n; ++i) {
                     char letter = word.charAt(i);
-                    if (cur.nodes[letter - 'a'] == null) return Collections.emptySet();
+                    if (cur.nodes[letter - 'a'] == null) return emptySet();
                     cur = cur.nodes[letter - 'a'];
                 }
                 return cur.words;
