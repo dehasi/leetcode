@@ -1,5 +1,6 @@
 package leetcode.hard;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
         public List<Integer> countSmaller(int[] nums) {
             int n = nums.length;
             if (n == 1) return List.of(0);
-            Integer[] counts = new Integer[n];
+            int[] counts = new int[n];
             counts[n - 1] = 0;
 
             TreeNode root = new TreeNode(nums[n - 1]);
@@ -46,7 +47,11 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
                 root.add(nums[i]);
             }
 
-            return Arrays.asList(counts);
+            List<Integer> result = new ArrayList<>(n);
+            for (int count : counts) {
+                result.add(count);
+            }
+            return result;
         }
 
         class TreeNode {
