@@ -36,10 +36,16 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
             counts[n - 1] = 0;
 
             TreeNode root = new TreeNode(nums[n - 1]);
-
+            int mini = n - 1, maxi = n - 1;
             for (int i = n - 2; i >= 0; --i) {
                 if (nums[i] == nums[i + 1]) {
                     counts[i] = counts[i + 1];
+                } else if (nums[i] > nums[maxi]) {
+                    maxi = i;
+                    counts[i] = n - i;
+                } else if (nums[i] < nums[mini]) {
+                    mini = i;
+                    counts[i] = 0;
                 } else {
                     counts[i] = root.findUnder(nums[i]);
                 }
