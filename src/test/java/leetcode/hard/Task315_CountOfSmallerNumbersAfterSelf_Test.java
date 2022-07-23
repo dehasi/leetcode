@@ -1,7 +1,8 @@
 package leetcode.hard;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,10 +31,24 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
     static
     class Solution {
         public List<Integer> countSmaller(int[] nums) {
-            List<Integer> counts = new ArrayList<>(nums.length);
+            int n = nums.length;
+            if (n == 1) return List.of(0);
+            Integer[] counts = new Integer[n];
+            counts[n - 1] = 0;
+            PriorityQueue<Integer> queue = new PriorityQueue<>();
+            queue.add(nums[n - 1]);
 
+            for (int i = n - 2; i >= 0; --i) {
+                if (nums[i] == nums[i + 1]) {
+                    counts[i] = counts[i + 1];
+                } else {
+                    int num = nums[i];
+                    counts[i] = (int)queue.stream().filter(x -> x < num).count();
+                }
+                queue.add(nums[i]);
+            }
 
-            return counts;
+            return Arrays.asList(counts);
         }
     }
 }
