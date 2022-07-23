@@ -24,8 +24,8 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
 
     private static int[] $(int... vars) {return vars;}
 
-    // [_] Input boundaries:
-    // [_] Edge cases:
+    // [x] Input boundaries: nums.len in [1..10^5], nums[i] in [-10^4..10^4]
+    // [x] Edge cases: nums.len == 1; nums[i] == nums[i+1] forAll i;
     // [_] Complexity (time, memory):
     static
     class Solution {
