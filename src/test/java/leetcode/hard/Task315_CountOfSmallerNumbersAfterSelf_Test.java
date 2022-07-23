@@ -1,7 +1,6 @@
 package leetcode.hard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -78,9 +77,13 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
 
             int findUnder(int val) {
                 if (this.val == val) return leftCount;
-                if (this.val < val) return leftCount + count + (right != null ? right.findUnder(val) : 0);
+                if (this.val < val) {
+                    if (right == null) return leftCount + count;
+                    else return leftCount + count + right.findUnder(val);
+                }
 
-                return left != null ? left.findUnder(val) : 0;
+                if (left == null) return 0;
+                else return left.findUnder(val);
             }
         }
     }
