@@ -68,7 +68,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
         class TreeNode {
             int val;
             int count;
-            int depth;
+            int leftCount, rightCount;
             TreeNode left, right;
 
             public TreeNode(int val) {this.val = val;}
@@ -81,9 +81,11 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
                 if (root.val > val) {
                     if (root.left != null) add(root.left, val);
                     else root.left = new TreeNode(val);
+                    ++root.leftCount;
                 } else {
                     if (root.right != null) add(root.right, val);
                     else root.right = new TreeNode(val);
+                    ++root.rightCount;
                 }
             }
         }
