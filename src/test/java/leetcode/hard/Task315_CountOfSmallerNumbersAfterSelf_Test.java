@@ -31,16 +31,18 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
     class Solution {
         public List<Integer> countSmaller(int[] nums) {
             int n = nums.length;
-            if (n == 1) return List.of(0);
             Integer[] counts = new Integer[n];
             counts[n - 1] = 0;
 
             TreeNode root = new TreeNode(nums[n - 1]);
 
             for (int i = n - 2; i >= 0; --i) {
-                // if (nums[i] == nums[i + 1]) {counts[i] = counts[i + 1];}
-                counts[i] = root.findUnder(nums[i]);
-                root.add(nums[i]);
+                if (nums[i] == nums[i + 1]) {
+                    counts[i] = counts[i + 1];
+                } else {
+                    counts[i] = root.findUnder(nums[i]);
+                    root.add(nums[i]);
+                }
             }
 
             return Arrays.asList(counts);
@@ -52,7 +54,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
             private int leftCount, rightCount;
             private TreeNode left, right;
 
-            public TreeNode(int val) {this.val = val; count =1;}
+            public TreeNode(int val) {this.val = val; count = 1;}
 
             void add(int val) {
                 if (this.val == val) {
