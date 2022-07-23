@@ -41,8 +41,8 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
                     counts[i] = counts[i + 1];
                 } else {
                     counts[i] = root.findUnder(nums[i]);
-                    root.add(nums[i]);
                 }
+                root.add(nums[i]);
             }
 
             return Arrays.asList(counts);
