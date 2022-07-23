@@ -1,6 +1,7 @@
 package leetcode.hard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +61,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
         }
 
         class TreeNode {
-            private int val;
+            final int val;
             private int count;
             private int leftCount;
             private TreeNode left, right;
