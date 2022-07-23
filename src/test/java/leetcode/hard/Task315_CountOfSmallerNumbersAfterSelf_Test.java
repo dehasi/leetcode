@@ -1,6 +1,5 @@
 package leetcode.hard;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
                     counts[i] = counts[i + 1];
                 } else if (nums[i] > nums[maxi]) {
                     maxi = i;
-                    counts[i] = n - i-1;
+                    counts[i] = n - i - 1;
                 } else if (nums[i] < nums[mini]) {
                     mini = i;
                     counts[i] = 0;
@@ -53,11 +52,11 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
                 root.add(nums[i]);
             }
 
-//            List<Integer> result = new ArrayList<>(n);
-//            for (int count : counts) {
-//                result.add(count);
-//            }
-//            return result;
+            //            List<Integer> result = new ArrayList<>(n);
+            //            for (int count : counts) {
+            //                result.add(count);
+            //            }
+            //            return result;
             return Arrays.asList(counts);
         }
 
