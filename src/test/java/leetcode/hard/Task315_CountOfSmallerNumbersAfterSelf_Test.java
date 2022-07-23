@@ -42,7 +42,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
                     counts[i] = counts[i + 1];
                 } else if (nums[i] > nums[maxi]) {
                     maxi = i;
-                    counts[i] = n - i;
+                    counts[i] = n - i-1;
                 } else if (nums[i] < nums[mini]) {
                     mini = i;
                     counts[i] = 0;
