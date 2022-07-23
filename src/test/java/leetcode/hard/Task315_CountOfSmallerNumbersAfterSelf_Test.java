@@ -31,6 +31,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
     class Solution {
         public List<Integer> countSmaller(int[] nums) {
             int n = nums.length;
+            if(n == 1) return List.of(0);
             List<Integer> counts = new ArrayList<>(n);
             for (int i = 0; i < n; ++i) counts.add(0);
 
