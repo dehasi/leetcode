@@ -46,7 +46,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
             Collections.sort(keys);
             counts[n - 1] = 0;
             Map<Integer, Integer> map = new HashMap<>(n);
-            map.put(nums[n - 1], map.getOrDefault(nums[n - 1], 0) + 1);
+            map.put(nums[n - 1], 1);
 
             for (int i = n - 2; i >= 0; --i) {
                 if (nums[i] == nums[i + 1]) {
