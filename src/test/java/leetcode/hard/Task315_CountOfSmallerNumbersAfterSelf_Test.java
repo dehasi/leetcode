@@ -33,7 +33,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
         public List<Integer> countSmaller(int[] nums) {
             int n = nums.length;
             if (n == 1) return List.of(0);
-            int[] counts = new int[n];
+            Integer[] counts = new Integer[n];
             counts[n - 1] = 0;
 
             TreeNode root = new TreeNode(nums[n - 1]);
@@ -53,11 +53,12 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
                 root.add(nums[i]);
             }
 
-            List<Integer> result = new ArrayList<>(n);
-            for (int count : counts) {
-                result.add(count);
-            }
-            return result;
+//            List<Integer> result = new ArrayList<>(n);
+//            for (int count : counts) {
+//                result.add(count);
+//            }
+//            return result;
+            return Arrays.asList(counts);
         }
 
         class TreeNode {
