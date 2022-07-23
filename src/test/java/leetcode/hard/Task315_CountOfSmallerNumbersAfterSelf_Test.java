@@ -38,14 +38,8 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
             TreeNode root = new TreeNode(nums[n - 1]);
 
             for (int i = n - 2; i >= 0; --i) {
-                if (nums[i] == nums[i + 1]) {
-                    counts[i] = counts[i + 1];
-                } else {
-                    int count = 0;
-                    root.findUnder(nums[i]);
-
-                    counts[i] = count;
-                }
+                // if (nums[i] == nums[i + 1]) {counts[i] = counts[i + 1];}
+                counts[i] = root.findUnder(nums[i]);
                 root.add(nums[i]);
             }
 
