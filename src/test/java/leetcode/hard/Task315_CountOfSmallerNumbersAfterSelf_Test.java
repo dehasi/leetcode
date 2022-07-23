@@ -1,13 +1,7 @@
 package leetcode.hard;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,54 +33,53 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
             int n = nums.length;
             if (n == 1) return List.of(0);
             Integer[] counts = new Integer[n];
-            Set<Integer> uniq = new HashSet<>(n / 10);
-            for (int num : nums) uniq.add(num);
-
-            List<Integer> keys = new ArrayList<>(uniq);
-            Collections.sort(keys);
             counts[n - 1] = 0;
-            Map<Integer, Integer> map = new HashMap<>(n);
-            map.put(nums[n - 1], 1);
+
+            TreeNode root = new TreeNode(nums[n - 1]);
 
             for (int i = n - 2; i >= 0; --i) {
                 if (nums[i] == nums[i + 1]) {
                     counts[i] = counts[i + 1];
                 } else {
                     int count = 0;
-                    for (Integer key : keys) {
-                        if (key >= nums[i]) break;
-                        count += map.getOrDefault(key, 0);
-                    }
+                    root.findUnder(nums[i]);
+
                     counts[i] = count;
                 }
-                map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+                root.add(nums[i]);
             }
 
             return Arrays.asList(counts);
         }
 
         class TreeNode {
-            int val;
-            int count;
-            int leftCount, rightCount;
-            TreeNode left, right;
+            private int val;
+            private int count;
+            private int leftCount, rightCount;
+            private TreeNode left, right;
 
             public TreeNode(int val) {this.val = val;}
 
-            void add(TreeNode root, int val) {
-                if (root == null) return;
-                if (root.val == val) {
-                    ++root.count; return;
+            void add(int val) {
+                if (this.val == val) {
+                    ++count; return;
                 }
-                if (root.val > val) {
-                    if (root.left != null) add(root.left, val);
-                    else root.left = new TreeNode(val);
-                    ++root.leftCount;
+                if (this.val > val) {
+                    if (left != null) left.add(val);
+                    else left = new TreeNode(val);
+                    ++leftCount;
                 } else {
-                    if (root.right != null) add(root.right, val);
-                    else root.right = new TreeNode(val);
-                    ++root.rightCount;
+                    if (right != null) right.add(val);
+                    else right = new TreeNode(val);
+                    ++rightCount;
                 }
+            }
+
+            int findUnder(int val) {
+                if (this.val == val) return leftCount;
+                if (this.val < val) return leftCount + count + (right != null ? right.findUnder(val) : 0);
+
+                return left != null ? left.findUnder(val) : 0;
             }
         }
     }
