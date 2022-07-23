@@ -52,7 +52,7 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
             private int leftCount, rightCount;
             private TreeNode left, right;
 
-            public TreeNode(int val) {this.val = val;}
+            public TreeNode(int val) {this.val = val; count =1;}
 
             void add(int val) {
                 if (this.val == val) {
