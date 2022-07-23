@@ -1,8 +1,13 @@
 package leetcode.hard;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.PriorityQueue;
+import java.util.Map;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,18 +39,27 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
             int n = nums.length;
             if (n == 1) return List.of(0);
             Integer[] counts = new Integer[n];
+            Set<Integer> uniq = new HashSet<>(n / 10);
+            for (int num : nums) uniq.add(num);
+
+            List<Integer> keys = new ArrayList<>(uniq);
+            Collections.sort(keys);
             counts[n - 1] = 0;
-            PriorityQueue<Integer> queue = new PriorityQueue<>();
-            queue.add(nums[n - 1]);
+            Map<Integer, Integer> map = new HashMap<>(n);
+            map.put(nums[n - 1], map.getOrDefault(nums[n - 1], 0) + 1);
 
             for (int i = n - 2; i >= 0; --i) {
                 if (nums[i] == nums[i + 1]) {
                     counts[i] = counts[i + 1];
                 } else {
-                    int num = nums[i];
-                    counts[i] = (int)queue.stream().filter(x -> x < num).count();
+                    int count = 0;
+                    for (Integer key : keys) {
+                        if (key >= nums[i]) break;
+                        count += map.getOrDefault(key, 0);
+                    }
+                    counts[i] = count;
                 }
-                queue.add(nums[i]);
+                map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
             }
 
             return Arrays.asList(counts);
