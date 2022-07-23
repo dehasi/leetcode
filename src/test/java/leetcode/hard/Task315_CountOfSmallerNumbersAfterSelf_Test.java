@@ -64,5 +64,28 @@ public class Task315_CountOfSmallerNumbersAfterSelf_Test {
 
             return Arrays.asList(counts);
         }
+
+        class TreeNode {
+            int val;
+            int count;
+            int depth;
+            TreeNode left, right;
+
+            public TreeNode(int val) {this.val = val;}
+
+            void add(TreeNode root, int val) {
+                if (root == null) return;
+                if (root.val == val) {
+                    ++root.count; return;
+                }
+                if (root.val > val) {
+                    if (root.left != null) add(root.left, val);
+                    else root.left = new TreeNode(val);
+                } else {
+                    if (root.right != null) add(root.right, val);
+                    else root.right = new TreeNode(val);
+                }
+            }
+        }
     }
 }
