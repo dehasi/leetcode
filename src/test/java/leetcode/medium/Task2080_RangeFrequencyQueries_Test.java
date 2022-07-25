@@ -59,13 +59,9 @@ public class Task2080_RangeFrequencyQueries_Test {
             three[index] = merge(three[left(index)], three[right(index)]);
         }
 
-        private int right(int index) {
-            return 2 * index + 2;
-        }
+        private int left(int index) {return 2 * index + 1;}
 
-        private int left(int index) {
-            return 2 * index + 1;
-        }
+        private int right(int index) {return 2 * index + 2;}
 
         private HashMap<Integer, Integer> query(int index, int lo, int hi, int from, int to) {
             if (lo > to || hi < from) return null;
