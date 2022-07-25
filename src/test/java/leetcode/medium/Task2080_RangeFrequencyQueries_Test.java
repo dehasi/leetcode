@@ -16,6 +16,15 @@ public class Task2080_RangeFrequencyQueries_Test {
         assertThat(solution.query(0, 11, 33)).isEqualTo(2);
     }
 
+    @Test void test2() {
+        RangeFreqQuery solution = new RangeFreqQuery($(1, 1, 1, 2, 2));
+
+        assertThat(solution.query(0, 1, 2)).isEqualTo(0);
+        assertThat(solution.query(0, 2, 1)).isEqualTo(3);
+        assertThat(solution.query(3, 3, 2)).isEqualTo(1);
+        assertThat(solution.query(2, 2, 1)).isEqualTo(1);
+    }
+
     private static int[] $(int... vals) {return vals;}
 
     // [x] Input boundaries: arr.len in [1..10^5] arr[i] in [1..10^4]
