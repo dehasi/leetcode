@@ -10,12 +10,15 @@ public class Task2080_RangeFrequencyQueries_Test {
     //    private final RangeFreqQuery solution = new RangeFreqQuery();
 
     @Test void test1() {
-        assertThat("").isEqualTo("");
+        RangeFreqQuery solution = new RangeFreqQuery($(12, 33, 4, 56, 22, 2, 34, 33, 22, 12, 34, 56));
+
+        assertThat(solution.query(1, 2, 4)).isEqualTo(2);
+        assertThat(solution.query(0, 11, 33)).isEqualTo(2);
     }
 
     private static int[] $(int... vals) {return vals;}
 
-    // [_] Input boundaries: arr.len in [1..10^5] arr[i] in [1..10^4]
+    // [x] Input boundaries: arr.len in [1..10^5] arr[i] in [1..10^4]
     // [_] Edge cases:
     // [_] Complexity (time, memory):
     static
@@ -33,6 +36,10 @@ public class Task2080_RangeFrequencyQueries_Test {
             buildTree(arr, 0, 0, n - 1);
         }
 
+        public int query(int left, int right, int value) {
+            return query(0, 0, n - 1, left, right).getOrDefault(value, 0);
+        }
+
         private void buildTree(int[] arr, int index, int lo, int hi) {
             if (lo == hi) {
                 three[index] = new HashMap<>() {{put(arr[lo], 1);}};
@@ -45,7 +52,7 @@ public class Task2080_RangeFrequencyQueries_Test {
             three[index] = merge(three[2 * index + 1], three[2 * index + 1]);
         }
 
-        HashMap<Integer, Integer> query(int index, int lo, int hi, int from, int to) {
+        private HashMap<Integer, Integer> query(int index, int lo, int hi, int from, int to) {
             if (lo > to || hi < from) return null;
 
             if (from <= lo && hi >= to) return three[index];
@@ -73,10 +80,6 @@ public class Task2080_RangeFrequencyQueries_Test {
             int powOfTwo = 1;
             while (powOfTwo < n) powOfTwo *= 2;
             return powOfTwo;
-        }
-
-        public int query(int left, int right, int value) {
-            return query(0, 0, n - 1, left, right).getOrDefault(value, 0);
         }
     }
 }
