@@ -76,8 +76,7 @@ public class Task2080_RangeFrequencyQueries_Test {
         }
 
         public int query(int left, int right, int value) {
-
-            return query(0, 0, n - 1, left, right).getOrDefault(value);
+            return query(0, 0, n - 1, left, right).getOrDefault(value, 0);
         }
     }
 }
