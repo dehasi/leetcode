@@ -21,13 +21,16 @@ public class Task2080_RangeFrequencyQueries_Test {
     static
     class RangeFreqQuery {
         private final int size;
+
         private final HashMap<Integer, Integer>[] three;
+        private final int n;
 
         public RangeFreqQuery(int[] arr) {
-            size = nextPowOfTwo(arr.length);
+            n = arr.length;
+            size = nextPowOfTwo(n);
             three = new HashMap[size];
 
-            buildTree(arr, 0, 0, arr.length - 1);
+            buildTree(arr, 0, 0, n - 1);
         }
 
         private void buildTree(int[] arr, int index, int lo, int hi) {
@@ -73,7 +76,8 @@ public class Task2080_RangeFrequencyQueries_Test {
         }
 
         public int query(int left, int right, int value) {
-            return -1;
+
+            return query(0, 0, n - 1, left, right).getOrDefault(value);
         }
     }
 }
