@@ -12,7 +12,7 @@ public class Task2080_RangeFrequencyQueries_Test {
     @Test void test1() {
         RangeFreqQuery solution = new RangeFreqQuery($(12, 33, 4, 56, 22, 2, 34, 33, 22, 12, 34, 56));
 
-        assertThat(solution.query(1, 2, 4)).isEqualTo(2);
+        assertThat(solution.query(1, 2, 4)).isEqualTo(1);
         assertThat(solution.query(0, 11, 33)).isEqualTo(2);
     }
 
@@ -49,7 +49,7 @@ public class Task2080_RangeFrequencyQueries_Test {
             buildTree(arr, left(index), lo, mid);
             buildTree(arr, 2 * index + 2, mid + 1, hi);
 
-            three[index] = merge(three[left(index)], three[2 * index + 1]);
+            three[index] = merge(three[left(index)], three[2 * index + 2]);
         }
 
         private int left(int index) {
