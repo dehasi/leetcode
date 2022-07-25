@@ -31,7 +31,7 @@ public class Task2080_RangeFrequencyQueries_Test {
         public RangeFreqQuery(int[] arr) {
             n = arr.length;
             size = nextPowOfTwo(n);
-            three = new HashMap[size];
+            three = new HashMap[4*n];
 
             buildTree(arr, 0, 0, n - 1);
         }
@@ -59,7 +59,7 @@ public class Task2080_RangeFrequencyQueries_Test {
             int mid = lo + (hi - lo) / 2;
             if (from > mid)
                 return query(2 * index + 2, mid + 1, hi, from, to);
-            else if (hi <= to)
+            else if (hi <= mid)
                 return query(2 * index + 1, lo, mid, from, to);
 
             HashMap<Integer, Integer> left = query(2 * index + 1, lo, mid, from, mid);
