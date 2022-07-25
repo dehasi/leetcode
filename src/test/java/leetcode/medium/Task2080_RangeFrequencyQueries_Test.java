@@ -24,6 +24,16 @@ public class Task2080_RangeFrequencyQueries_Test {
         assertThat(solution.query(3, 3, 2)).isEqualTo(1);
         assertThat(solution.query(2, 2, 1)).isEqualTo(1);
     }
+    
+    @Test void test3() {
+        RangeFreqQuery solution = new RangeFreqQuery($(3, 4, 5, 3, 3, 2, 2, 2, 5, 4));
+
+        assertThat(solution.query(2, 6, 3)).isEqualTo(2);
+        assertThat(solution.query(5, 6, 5)).isEqualTo(0);
+        assertThat(solution.query(1, 6, 2)).isEqualTo(2);
+        assertThat(solution.query(0, 2, 3)).isEqualTo(1);
+        assertThat(solution.query(5, 6, 4)).isEqualTo(0);
+    }
 
     private static int[] $(int... vals) {return vals;}
 
