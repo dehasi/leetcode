@@ -26,6 +26,22 @@ public class Task2080_RangeFrequencyQueries_Test {
         public RangeFreqQuery(int[] arr) {
             size = nextPowOfTwo(arr.length);
             three = new HashMap[size];
+
+            buildTree(arr, 0, 0, arr.length - 1);
+        }
+
+        private void buildTree(int[] arr, int index, int lo, int hi) {
+            if (lo == hi) {
+                three[index] = new HashMap<>() {{put(arr[lo], 1);}};
+                return;
+            }
+            int mid = lo + (hi - lo) / 2;
+            buildTree(arr, 2 * index + 1, lo, mid);
+            buildTree(arr, 2 * index + 2, mid + 1, hi);
+
+            // merge three[2 * index + 1] and three[2 * index + 2]
+            three[index] = new HashMap<>(three[2 * index + 1]);
+            three[2 * index + 1].forEach((k, v) -> three[index].merge(k, v, Integer::sum));
         }
 
         private int nextPowOfTwo(int n) {
