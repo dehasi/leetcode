@@ -47,9 +47,13 @@ public class Task2080_RangeFrequencyQueries_Test {
             }
             int mid = lo + (hi - lo) / 2;
             buildTree(arr, left(index), lo, mid);
-            buildTree(arr, 2 * index + 2, mid + 1, hi);
+            buildTree(arr, right(index), mid + 1, hi);
 
-            three[index] = merge(three[left(index)], three[2 * index + 2]);
+            three[index] = merge(three[left(index)], three[right(index)]);
+        }
+
+        private int right(int index) {
+            return 2 * index + 2;
         }
 
         private int left(int index) {
@@ -62,12 +66,12 @@ public class Task2080_RangeFrequencyQueries_Test {
             if (from <= lo && hi >= to) return three[index];
             int mid = lo + (hi - lo) / 2;
             if (from > mid)
-                return query(2 * index + 2, mid + 1, hi, from, to);
+                return query(right(index), mid + 1, hi, from, to);
             else if (hi <= mid)
                 return query(left(index), lo, mid, from, to);
 
             HashMap<Integer, Integer> left = query(left(index), lo, mid, from, mid);
-            HashMap<Integer, Integer> right = query(2 * index + 2, mid + 1, hi, mid + 1, to);
+            HashMap<Integer, Integer> right = query(right(index), mid + 1, hi, mid + 1, to);
             return merge(left, right);
         }
 
