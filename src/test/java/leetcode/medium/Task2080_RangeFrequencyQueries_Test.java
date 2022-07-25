@@ -61,7 +61,9 @@ public class Task2080_RangeFrequencyQueries_Test {
 
         public int query(int left, int right, int value) {
             Node node = query(0, 0, n - 1, left, right);
-            return 3;
+            int l = node.mostLeft(value);
+            if (l == -1 || node.sorted)
+                return 3;
         }
 
         private void buildTree(int[] arr, int index, int lo, int hi) {
@@ -140,6 +142,18 @@ public class Task2080_RangeFrequencyQueries_Test {
                     if (sorted[mid] <= target) {
                         ans = mid; r = mid;
                     } else l = mid + 1;
+                }
+                if (ans == -1 || sorted[ans] != target) return -1;
+                else return ans;
+            }
+
+            int mostRight(int target) {
+                int ans = -1, l = 0, r = sorted.length;
+                while (l < r) {
+                    int mid = l + (r - l) / 2;
+                    if (sorted[mid] >= target) {
+                        ans = mid; l = mid + 1;
+                    } else r = mid;
                 }
                 if (ans == -1 || sorted[ans] != target) return -1;
                 else return ans;
