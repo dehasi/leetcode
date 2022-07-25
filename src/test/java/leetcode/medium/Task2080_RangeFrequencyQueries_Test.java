@@ -32,15 +32,13 @@ public class Task2080_RangeFrequencyQueries_Test {
     // [_] Complexity (time, memory):
     static
     class RangeFreqQuery {
-        private final int size;
-
         private final HashMap<Integer, Integer>[] three;
         private final int n;
 
         public RangeFreqQuery(int[] arr) {
             n = arr.length;
-            size = nextPowOfTwo(n);
-            three = new HashMap[4 * n];
+            int size = nextPowOfTwo(n);
+            three = new HashMap[4 * size];
 
             buildTree(arr, 0, 0, n - 1);
         }
