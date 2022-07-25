@@ -42,7 +42,15 @@ public class Task2080_RangeFrequencyQueries_Test {
             three[index] = merge(three[2 * index + 1], three[2 * index + 1]);
         }
 
+        HashMap<Integer, Integer> query(int index, int lo, int hi, int from, int to) {
+            if (lo > to || hi < from) return null;
+            return null;
+        }
+
         private HashMap<Integer, Integer> merge(HashMap<Integer, Integer> map1, HashMap<Integer, Integer> map2) {
+            if (map1 == null) return map2;
+            if (map2 == null) return map1;
+
             var result = new HashMap<>(map1);
             map2.forEach((k, v) -> result.merge(k, v, Integer::sum));
             return result;
