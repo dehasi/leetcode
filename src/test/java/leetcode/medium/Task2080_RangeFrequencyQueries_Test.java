@@ -132,6 +132,18 @@ public class Task2080_RangeFrequencyQueries_Test {
             Node(int... sorted) {
                 this.sorted = sorted;
             }
+
+            int mostLeft(int target) {
+                int ans = -1, l = 0, r = sorted.length;
+                while (l < r) {
+                    int mid = l + (r - l) / 2;
+                    if (sorted[mid] <= target) {
+                        ans = mid; r = mid;
+                    } else l = mid + 1;
+                }
+                if (ans == -1 || sorted[ans] != target) return -1;
+                else return ans;
+            }
         }
     }
 }
