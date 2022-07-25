@@ -71,6 +71,15 @@ public class Task2080_RangeFrequencyQueries_Test {
 
         private int right(int index) {return 2 * index + 2;}
 
+        private HashMap<Integer, Integer> merge(HashMap<Integer, Integer> map1, HashMap<Integer, Integer> map2) {
+            if (map1 == null) return map2;
+            if (map2 == null) return map1;
+
+            var result = new HashMap<>(map1);
+            map2.forEach((k, v) -> result.merge(k, v, Integer::sum));
+            return result;
+        }
+
         private HashMap<Integer, Integer> query(int index, int lo, int hi, int from, int to) {
             if (lo > to || hi < from) return null;
 
@@ -85,15 +94,6 @@ public class Task2080_RangeFrequencyQueries_Test {
             HashMap<Integer, Integer> left = query(left(index), lo, mid, from, mid);
             HashMap<Integer, Integer> right = query(right(index), mid + 1, hi, mid + 1, to);
             return merge(left, right);
-        }
-
-        private HashMap<Integer, Integer> merge(HashMap<Integer, Integer> map1, HashMap<Integer, Integer> map2) {
-            if (map1 == null) return map2;
-            if (map2 == null) return map1;
-
-            var result = new HashMap<>(map1);
-            map2.forEach((k, v) -> result.merge(k, v, Integer::sum));
-            return result;
         }
 
         private int nextPowOfTwo(int n) {
