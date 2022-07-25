@@ -96,6 +96,15 @@ public class Task2080_RangeFrequencyQueries_Test {
                 }
             }
 
+            while (i < node1.sorted.length) {
+                result[k] = node1.sorted[i];
+                ++k; ++i;
+            }
+
+            while (j < node2.sorted.length) {
+                result[k] = node2.sorted[j];
+                ++k; ++j;
+            }
             return new Node(result);
         }
 
