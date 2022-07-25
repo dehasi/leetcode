@@ -23,6 +23,12 @@ public class Task2080_RangeFrequencyQueries_Test {
         assertThat(solution.query(2, 2, 1)).isEqualTo(1);
     }
 
+    /*
+
+
+    3, 4, 5, 3, 3, 2, 2, 2, 5, 4, _, _, _, _, _,
+    0, 1, 2, 3, 4, 5, 6, 7, 8 ,9,
+     */
     @Test void test3() {
         RangeFreqQuery solution = new RangeFreqQuery($(3, 4, 5, 3, 3, 2, 2, 2, 5, 4));
 
