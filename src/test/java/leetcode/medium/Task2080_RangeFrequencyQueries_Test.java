@@ -1,5 +1,6 @@
 package leetcode.medium;
 
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,9 +20,12 @@ public class Task2080_RangeFrequencyQueries_Test {
     // [_] Complexity (time, memory):
     static
     class RangeFreqQuery {
+        private final int size;
+        private final HashMap<Integer, Integer>[] three;
 
         public RangeFreqQuery(int[] arr) {
-            int size = nextPowOfTwo(arr.length);
+            size = nextPowOfTwo(arr.length);
+            three = new HashMap[size];
         }
 
         private int nextPowOfTwo(int n) {
