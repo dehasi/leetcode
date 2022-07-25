@@ -28,10 +28,14 @@ public class Task2080_RangeFrequencyQueries_Test {
 
     3, 4, 5, 3, 3, 2, 2, 2, 5, 4, _, _, _, _, _,
     0, 1, 2, 3, 4, 5, 6, 7, 8 ,9,
+            0-9
+         0-4,    5-9
+    0-2,  3-4,  5-7,8-9
+0-1,2-2,3-3,4-4, 5-6,7-7, 8-8, 9-9
+   00,11,22,33,44,
      */
     @Test void test3() {
         RangeFreqQuery solution = new RangeFreqQuery($(3, 4, 5, 3, 3, 2, 2, 2, 5, 4));
-
         assertThat(solution.query(1, 6, 2)).isEqualTo(2);
         assertThat(solution.query(2, 6, 3)).isEqualTo(2);
         assertThat(solution.query(5, 6, 5)).isEqualTo(0);
@@ -93,7 +97,7 @@ public class Task2080_RangeFrequencyQueries_Test {
             int mid = lo + (hi - lo) / 2;
             if (from > mid)
                 return query(right(index), mid + 1, hi, from, to);
-            else if (hi <= mid)
+            else if (to <= mid)
                 return query(left(index), lo, mid, from, to);
 
             HashMap<Integer, Integer> left = query(left(index), lo, mid, from, mid);
