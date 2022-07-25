@@ -1,6 +1,5 @@
 package leetcode.medium;
 
-import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,23 +49,24 @@ public class Task2080_RangeFrequencyQueries_Test {
     // [_] Complexity (time, memory):
     static
     class RangeFreqQuery {
-        private final HashMap<Integer, Integer>[] three;
+        private final Node[] three;
         private final int n;
 
         public RangeFreqQuery(int[] arr) {
             n = arr.length;
-            three = new HashMap[4 * n];
+            three = new Node[4 * n];
 
             buildTree(arr, 0, 0, n - 1);
         }
 
         public int query(int left, int right, int value) {
-            return query(0, 0, n - 1, left, right).getOrDefault(value, 0);
+            Node node = query(0, 0, n - 1, left, right);
+            return 3;
         }
 
         private void buildTree(int[] arr, int index, int lo, int hi) {
             if (lo == hi) {
-                three[index] = new HashMap<>() {{put(arr[lo], 1);}};
+                three[index] = new Node(1);
                 return;
             }
             int mid = lo + (hi - lo) / 2;
@@ -80,16 +80,26 @@ public class Task2080_RangeFrequencyQueries_Test {
 
         private int right(int index) {return 2 * index + 2;}
 
-        private HashMap<Integer, Integer> merge(HashMap<Integer, Integer> map1, HashMap<Integer, Integer> map2) {
-            if (map1 == null) return map2;
-            if (map2 == null) return map1;
+        private Node merge(Node node1, Node node2) {
+            if (node1 == null) return node2;
+            if (node2 == null) return node1;
 
-            var result = new HashMap<>(map1);
-            map2.forEach((k, v) -> result.merge(k, v, Integer::sum));
-            return result;
+            int[] result = new int[node1.sorted.length + node2.sorted.length];
+            int i = 0, j = 0, k = 0;
+            while (i < node1.sorted.length && j < node2.sorted.length) {
+                if (node1.sorted[i] < node2.sorted[j]) {
+                    result[k] = node1.sorted[i];
+                    ++k; ++i;
+                } else {
+                    result[k] = node2.sorted[j];
+                    ++k; ++j;
+                }
+            }
+
+            return new Node(result);
         }
 
-        private HashMap<Integer, Integer> query(int index, int lo, int hi, int from, int to) {
+        private Node query(int index, int lo, int hi, int from, int to) {
             if (lo > to || hi < from) return null;
 
             if (from <= lo && to >= hi) return three[index];
@@ -100,9 +110,19 @@ public class Task2080_RangeFrequencyQueries_Test {
             else if (to <= mid)
                 return query(left(index), lo, mid, from, to);
 
-            HashMap<Integer, Integer> left = query(left(index), lo, mid, from, mid);
-            HashMap<Integer, Integer> right = query(right(index), mid + 1, hi, mid + 1, to);
+            Node left = query(left(index), lo, mid, from, mid);
+            Node right = query(right(index), mid + 1, hi, mid + 1, to);
             return merge(left, right);
+        }
+
+        int[] $(int... vals) {return vals;}
+
+        class Node {
+            int[] sorted;
+
+            Node(int... sorted) {
+                this.sorted = sorted;
+            }
         }
     }
 }
