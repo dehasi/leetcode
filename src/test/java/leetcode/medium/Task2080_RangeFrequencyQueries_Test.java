@@ -31,7 +31,7 @@ public class Task2080_RangeFrequencyQueries_Test {
         public RangeFreqQuery(int[] arr) {
             n = arr.length;
             size = nextPowOfTwo(n);
-            three = new HashMap[4*n];
+            three = new HashMap[4 * n];
 
             buildTree(arr, 0, 0, n - 1);
         }
@@ -46,10 +46,14 @@ public class Task2080_RangeFrequencyQueries_Test {
                 return;
             }
             int mid = lo + (hi - lo) / 2;
-            buildTree(arr, 2 * index + 1, lo, mid);
+            buildTree(arr, left(index), lo, mid);
             buildTree(arr, 2 * index + 2, mid + 1, hi);
 
-            three[index] = merge(three[2 * index + 1], three[2 * index + 1]);
+            three[index] = merge(three[left(index)], three[2 * index + 1]);
+        }
+
+        private int left(int index) {
+            return 2 * index + 1;
         }
 
         private HashMap<Integer, Integer> query(int index, int lo, int hi, int from, int to) {
@@ -60,9 +64,9 @@ public class Task2080_RangeFrequencyQueries_Test {
             if (from > mid)
                 return query(2 * index + 2, mid + 1, hi, from, to);
             else if (hi <= mid)
-                return query(2 * index + 1, lo, mid, from, to);
+                return query(left(index), lo, mid, from, to);
 
-            HashMap<Integer, Integer> left = query(2 * index + 1, lo, mid, from, mid);
+            HashMap<Integer, Integer> left = query(left(index), lo, mid, from, mid);
             HashMap<Integer, Integer> right = query(2 * index + 2, mid + 1, hi, mid + 1, to);
             return merge(left, right);
         }
