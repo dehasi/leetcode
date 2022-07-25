@@ -7,8 +7,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task2080_RangeFrequencyQueries_Test {
 
-    //    private final RangeFreqQuery solution = new RangeFreqQuery();
-
     @Test void test1() {
         RangeFreqQuery solution = new RangeFreqQuery($(12, 33, 4, 56, 22, 2, 34, 33, 22, 12, 34, 56));
 
@@ -24,7 +22,7 @@ public class Task2080_RangeFrequencyQueries_Test {
         assertThat(solution.query(3, 3, 2)).isEqualTo(1);
         assertThat(solution.query(2, 2, 1)).isEqualTo(1);
     }
-    
+
     @Test void test3() {
         RangeFreqQuery solution = new RangeFreqQuery($(3, 4, 5, 3, 3, 2, 2, 2, 5, 4));
 
