@@ -66,7 +66,7 @@ public class Task2080_RangeFrequencyQueries_Test {
         private HashMap<Integer, Integer> query(int index, int lo, int hi, int from, int to) {
             if (lo > to || hi < from) return null;
 
-            if (from <= lo && hi >= to) return three[index];
+            if (from <= lo && to >= hi) return three[index];
             int mid = lo + (hi - lo) / 2;
             if (from > mid)
                 return query(right(index), mid + 1, hi, from, to);
