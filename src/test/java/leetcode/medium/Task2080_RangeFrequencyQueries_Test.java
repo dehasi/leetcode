@@ -51,7 +51,10 @@ public class Task2080_RangeFrequencyQueries_Test {
                 return query(2 * index + 2, mid + 1, hi, from, to);
             else if (hi <= to)
                 return query(2 * index + 1, lo, mid, from, to);
-            return null;
+
+            HashMap<Integer, Integer> left = query(2 * index + 1, lo, mid, from, mid);
+            HashMap<Integer, Integer> right = query(2 * index + 2, mid + 1, hi, mid + 1, to);
+            return merge(left, right);
         }
 
         private HashMap<Integer, Integer> merge(HashMap<Integer, Integer> map1, HashMap<Integer, Integer> map2) {
