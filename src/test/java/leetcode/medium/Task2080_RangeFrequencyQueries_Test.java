@@ -39,9 +39,13 @@ public class Task2080_RangeFrequencyQueries_Test {
             buildTree(arr, 2 * index + 1, lo, mid);
             buildTree(arr, 2 * index + 2, mid + 1, hi);
 
-            // merge three[2 * index + 1] and three[2 * index + 2]
-            three[index] = new HashMap<>(three[2 * index + 1]);
-            three[2 * index + 1].forEach((k, v) -> three[index].merge(k, v, Integer::sum));
+            three[index] = merge(three[2 * index + 1], three[2 * index + 1]);
+        }
+
+        private HashMap<Integer, Integer> merge(HashMap<Integer, Integer> map1, HashMap<Integer, Integer> map2) {
+            var result = new HashMap<>(map1);
+            map2.forEach((k, v) -> result.merge(k, v, Integer::sum));
+            return result;
         }
 
         private int nextPowOfTwo(int n) {
