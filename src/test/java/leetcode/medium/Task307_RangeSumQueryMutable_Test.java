@@ -57,7 +57,7 @@ public class Task307_RangeSumQueryMutable_Test {
             buildTree(left(index), lo, mid, nums);
             buildTree(right(index), mid + 1, hi, nums);
 
-            tree[index] = merge(tree[left(index)], tree[right(index)]);
+            tree[index] = tree[left(index)] + tree[right(index)];
         }
 
         int query(int index, int lo, int hi, int from, int to) {
@@ -72,7 +72,7 @@ public class Task307_RangeSumQueryMutable_Test {
 
             int left = query(left(index), lo, mid, from, mid);
             int right = query(right(index), mid + 1, hi, mid + 1, to);
-            return merge(left, right);
+            return left + right;
         }
 
         void update(int index, int lo, int hi, int i, int val) {
@@ -85,10 +85,8 @@ public class Task307_RangeSumQueryMutable_Test {
             update(left(index), lo, mid, i, val);
             update(right(index), mid + 1, hi, i, val);
 
-            tree[index] = merge(tree[left(index)], tree[right(index)]);
+            tree[index] = tree[left(index)] + tree[right(index)];
         }
-
-        private int merge(int left, int right) {return left + right;}
 
         static int left(int index) {return 2 * index + 1;}
 
