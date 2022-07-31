@@ -25,8 +25,6 @@ public class Task307_RangeSumQueryMutable_Test {
     }
 
     @Test void test3() {
-        //  "update","update","update","sumRange","update","sumRange","update"]
-        //  [4,5],  [1,7],   [0,8],     [1,2],     [1,9],   [4,4],      [3,4]]
         NumArray numArray = new NumArray($(0, 9, 5, 7, 3));
 
         assertThat(numArray.sumRange(4, 4)).isEqualTo(3);
