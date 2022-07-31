@@ -40,7 +40,7 @@ public class Task307_RangeSumQueryMutable_Test {
 
     private static int[] $(int... vals) {return vals;}
 
-    // [_] Input boundaries: nums_len in [1..3*10^4], nums_i in [-100..100] => max sum forall_i 3*10^6 < INT_MAX_VAL
+    // [x] Input boundaries: nums_len in [1..3*10^4], nums_i in [-100..100] => max sum forall_i 3*10^6 < INT_MAX_VAL
     // [_] Edge cases:
     // [_] Complexity (time, memory):
     static
@@ -60,18 +60,6 @@ public class Task307_RangeSumQueryMutable_Test {
                     tree[i / 2] = tree[i] + tree[i + 1];
         }
 
-        void buildTree(int index, int lo, int hi, int[] nums) {
-            if (lo == hi) {
-                tree[index] = nums[lo];
-                return;
-            }
-            int mid = lo + (hi - lo) / 2;
-            buildTree(left(index), lo, mid, nums);
-            buildTree(right(index), mid + 1, hi, nums);
-
-            tree[index] = tree[left(index)] + tree[right(index)];
-        }
-
         int query(int index, int lo, int hi, int from, int to) {
             if (lo > to || hi < from) return 0;
             if (from <= lo && hi <= to) return tree[index];
@@ -85,19 +73,6 @@ public class Task307_RangeSumQueryMutable_Test {
             int left = query(left(index), lo, mid, from, mid);
             int right = query(right(index), mid + 1, hi, mid + 1, to);
             return left + right;
-        }
-
-        void update(int index, int lo, int hi, int i, int val) {
-            if (lo == hi) {
-                if (lo == i) tree[index] = val;
-                return;
-            }
-
-            int mid = lo + (hi - lo) / 2;
-            update(left(index), lo, mid, i, val);
-            update(right(index), mid + 1, hi, i, val);
-
-            tree[index] = tree[left(index)] + tree[right(index)];
         }
 
         static int left(int index) {return 2 * index;}
