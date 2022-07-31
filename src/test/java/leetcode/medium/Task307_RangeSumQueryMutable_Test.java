@@ -14,6 +14,16 @@ public class Task307_RangeSumQueryMutable_Test {
         assertThat(numArray.sumRange(0, 2)).isEqualTo(8);
     }
 
+    @Test void test2() {
+        NumArray numArray = new NumArray($(9, -8));
+
+        numArray.update(0, 3);
+        assertThat(numArray.sumRange(1, 1)).isEqualTo(-8);
+        assertThat(numArray.sumRange(0, 1)).isEqualTo(-5);
+        numArray.update(1, -3);
+        assertThat(numArray.sumRange(0, 1)).isEqualTo(0);
+    }
+
     private static int[] $(int... vals) {return vals;}
 
     // [_] Input boundaries: nums_len in [1..3*10^4], nums_i in [-100..100] => max sum forall_i 3*10^6 < INT_MAX_VAL
