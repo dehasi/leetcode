@@ -44,8 +44,12 @@ public class Task307_RangeSumQueryMutable_Test {
 
         public NumArray(int[] nums) {
             n = nums.length;
-            tree = new int[4 * n];
-            buildTree(0, 0, n - 1, nums);
+            tree = new int[2 * nextPowOfTwo(n)];
+
+            System.arraycopy(nums, 0, tree, nextPowOfTwo(n) / 2, n);
+            for (int p = nextPowOfTwo(n) / 2; p > 0; p /= 2)
+                for (int i = p; i < 2 * p; i += 2)
+                    tree[i / 2] = tree[i] + tree[i + 1];
         }
 
         void buildTree(int index, int lo, int hi, int[] nums) {
@@ -92,6 +96,12 @@ public class Task307_RangeSumQueryMutable_Test {
 
         static int right(int index) {return 2 * index + 2;}
 
+        static int nextPowOfTwo(int val) {
+            int pow = 1;
+            while (pow < val) pow *= 2;
+            return pow;
+        }
+
         public void update(int index, int val) {
             update(0, 0, n - 1, index, val);
         }
@@ -101,3 +111,24 @@ public class Task307_RangeSumQueryMutable_Test {
         }
     }
 }
+
+/*
+
+l = 2*i =>
+    (l-1)/2=i
+r = 2*i+1
+    (r-2)/2=i
+
+
+         1
+      2     3
+    4 5     6 7
+
+1 2 3 4   5 6 7 8
+0 1 2 3 | 4 5 6 7
+(4-1)/2 = 1
+(5-2)/2 = 1
+
+(6-1)/2 = 2
+(6-2)/2 = 2
+*/
