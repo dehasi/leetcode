@@ -31,7 +31,6 @@ public class Task307_RangeSumQueryMutable_Test {
         }
 
         void buildTree(int index, int lo, int hi, int[] nums) {
-            if (lo > hi) return;
             if (lo == hi) {
                 tree[index] = nums[lo];
                 return;
