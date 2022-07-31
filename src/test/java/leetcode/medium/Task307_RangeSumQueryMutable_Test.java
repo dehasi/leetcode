@@ -24,6 +24,16 @@ public class Task307_RangeSumQueryMutable_Test {
         assertThat(numArray.sumRange(0, 1)).isEqualTo(0);
     }
 
+    @Test void test3() {
+        //  "update","update","update","sumRange","update","sumRange","update"]
+        //  [4,5],  [1,7],   [0,8],     [1,2],     [1,9],   [4,4],      [3,4]]
+        NumArray numArray = new NumArray($(0, 9, 5, 7, 3));
+
+        assertThat(numArray.sumRange(4, 4)).isEqualTo(3);
+        assertThat(numArray.sumRange(2, 4)).isEqualTo(15);
+        assertThat(numArray.sumRange(3, 3)).isEqualTo(7);
+    }
+
     @Test void test_tree_is_built_correctly() {
         NumArray numArray = new NumArray($(1, 2, 3));
 
@@ -106,7 +116,7 @@ public class Task307_RangeSumQueryMutable_Test {
         }
 
         public int sumRange(int left, int right) {
-            return query(1, 0, n - 1, left, right);
+            return query(1, 0, pow - 1, left, right);
         }
     }
 }
@@ -130,4 +140,10 @@ r = 2*i+1
 
 (6-1)/2 = 2
 (6-2)/2 = 2
+                  24            [0, pow]
+            21          3     [0, pow/2] [pow/2, pow]
+         9     12     3      0
+       0  9    5 7   3 0    0 0
+       0  1    2 3    4
+
 */
