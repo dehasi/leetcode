@@ -90,43 +90,17 @@ public class Task307_RangeSumQueryMutable_Test {
         private final int pow;
 
         public NumArray(int[] nums) {
-            int n = nums.length;
-            pow = nextPowOfTwo(n);
-            tree = new int[2 * pow];
-
-            buildTreeBottomUp(nums);
+            pow = nextPowOfTwo(nums.length);
+            tree = buildTreeBottomUp(nums, pow);
         }
 
-        private void buildTreeBottomUp(int[] nums) {
+        private int[] buildTreeBottomUp(int[] nums, int pow) {
+            int[] tree = new int[2 * pow];
             System.arraycopy(nums, 0, tree, pow, nums.length);
             for (int p = pow; p > 1; p /= 2)
                 for (int i = p; i < 2 * p; i += 2)
                     tree[i / 2] = tree[i] + tree[i + 1];
-        }
-
-        int query(int index, int lo, int hi, int from, int to) {
-            if (lo > to || hi < from) return 0;
-            if (from <= lo && hi <= to) return tree[index];
-
-            int mid = lo + (hi - lo) / 2;
-            if (from > mid)
-                return query(right(index), mid + 1, hi, from, to);
-            else if (to <= mid)
-                return query(left(index), lo, mid, from, to);
-
-            int left = query(left(index), lo, mid, from, mid);
-            int right = query(right(index), mid + 1, hi, mid + 1, to);
-            return left + right;
-        }
-
-        static int left(int index) {return 2 * index;}
-
-        static int right(int index) {return 2 * index + 1;}
-
-        static int nextPowOfTwo(int val) {
-            int pow = 1;
-            while (pow < val) pow *= 2;
-            return pow;
+            return tree;
         }
 
         public void update(int index, int val) {
@@ -141,6 +115,31 @@ public class Task307_RangeSumQueryMutable_Test {
 
         public int sumRange(int left, int right) {
             return query(1, 0, pow - 1, left, right);
+        }
+
+        private int query(int index, int lo, int hi, int from, int to) {
+            if (lo > to || hi < from) return 0;
+            if (from <= lo && hi <= to) return tree[index];
+
+            int mid = lo + (hi - lo) / 2;
+            if (from > mid)
+                return query(right(index), mid + 1, hi, from, to);
+            else if (to <= mid)
+                return query(left(index), lo, mid, from, to);
+
+            int left = query(left(index), lo, mid, from, mid);
+            int right = query(right(index), mid + 1, hi, mid + 1, to);
+            return left + right;
+        }
+
+        private static int left(int index) {return 2 * index;}
+
+        private static int right(int index) {return 2 * index + 1;}
+
+        private static int nextPowOfTwo(int val) {
+            int pow = 1;
+            while (pow < val) pow *= 2;
+            return pow;
         }
     }
 }
