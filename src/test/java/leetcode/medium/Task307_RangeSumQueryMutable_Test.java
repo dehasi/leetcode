@@ -58,7 +58,6 @@ public class Task307_RangeSumQueryMutable_Test {
         }
 
         void update(int index, int lo, int hi, int i, int val) {
-            // if (hi > i && lo < i) return;
             if (lo == hi) {
                 if (lo == i) tree[index] = val;
                 return;
