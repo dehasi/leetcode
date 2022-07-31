@@ -42,6 +42,21 @@ public class Task307_RangeSumQueryMutable_Test {
             tree[index] = merge(tree[left(index)], tree[right(index)]);
         }
 
+        int query(int index, int lo, int hi, int from, int to) {
+            if (lo > to || hi < from) return 0;
+            if (from <= lo && hi <= to) return tree[index];
+
+            int mid = lo + (hi - lo) / 2;
+            if (from > mid)
+                return query(index, mid + 1, hi, from, to);
+            else if (to <= mid)
+                return query(index, lo, mid, from, to);
+
+            int left = query(left(index), lo, mid, from, mid);
+            int right = query(right(index), mid + 1, hi, mid + 1, to);
+            return merge(left, right);
+        }
+
         private int merge(int left, int right) {return left + right;}
 
         static int left(int index) {return 2 * index + 1;}
