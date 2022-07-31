@@ -21,10 +21,33 @@ public class Task307_RangeSumQueryMutable_Test {
     // [_] Complexity (time, memory):
     static
     class NumArray {
+        private final int n;
+        private final int[] tree;
 
         public NumArray(int[] nums) {
-
+            n = nums.length;
+            tree = new int[4 * n];
+            buildTree(0, 0, n - 1, nums);
         }
+
+        void buildTree(int index, int lo, int hi, int[] nums) {
+            if (lo > hi) return;
+            if (lo == hi) {
+                tree[index] = nums[lo];
+                return;
+            }
+            int mid = lo + (hi - lo) / 2;
+            buildTree(left(index), lo, mid, nums);
+            buildTree(right(index), mid + 1, hi, nums);
+
+            tree[index] = merge(tree[left(index)], tree[right(index)]);
+        }
+
+        private int merge(int left, int right) {return left + right;}
+
+        static int left(int index) {return 2 * index + 1;}
+
+        static int right(int index) {return 2 * index + 2;}
 
         public void update(int index, int val) {
 
