@@ -47,10 +47,11 @@ public class Task307_RangeSumQueryMutable_Test {
     class NumArray {
         private final int n;
         private final int[] tree;
+        private final int pow;
 
         public NumArray(int[] nums) {
             n = nums.length;
-            int pow = nextPowOfTwo(n);
+            pow = nextPowOfTwo(n);
             tree = new int[2 * pow];
 
             System.arraycopy(nums, 0, tree, pow, n);
@@ -110,7 +111,13 @@ public class Task307_RangeSumQueryMutable_Test {
         }
 
         public void update(int index, int val) {
-            update(1, 0, n - 1, index, val);
+            int idx = index + pow;
+            idx -= (idx % 2);
+            tree[idx] = val;
+            for (int p = pow; p > 1; p /= 2) {
+                tree[idx / 2] = tree[idx] + tree[idx + 1];
+                idx = idx / 2;
+            }
         }
 
         public int sumRange(int left, int right) {
