@@ -24,6 +24,14 @@ public class Task307_RangeSumQueryMutable_Test {
         assertThat(numArray.sumRange(0, 1)).isEqualTo(0);
     }
 
+    @Test void test_tree_is_done_correctly() {
+        NumArray numArray = new NumArray($(1, 2, 3));
+
+        assertThat(numArray.sumRange(0, 0)).isEqualTo(1);
+        assertThat(numArray.sumRange(1, 1)).isEqualTo(2);
+        assertThat(numArray.sumRange(2, 2)).isEqualTo(3);
+    }
+
     private static int[] $(int... vals) {return vals;}
 
     // [_] Input boundaries: nums_len in [1..3*10^4], nums_i in [-100..100] => max sum forall_i 3*10^6 < INT_MAX_VAL
@@ -58,9 +66,9 @@ public class Task307_RangeSumQueryMutable_Test {
 
             int mid = lo + (hi - lo) / 2;
             if (from > mid)
-                return query(index, mid + 1, hi, from, to);
+                return query(right(index), mid + 1, hi, from, to);
             else if (to <= mid)
-                return query(index, lo, mid, from, to);
+                return query(left(index), lo, mid, from, to);
 
             int left = query(left(index), lo, mid, from, mid);
             int right = query(right(index), mid + 1, hi, mid + 1, to);
