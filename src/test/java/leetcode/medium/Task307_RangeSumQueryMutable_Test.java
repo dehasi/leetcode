@@ -72,6 +72,13 @@ public class Task307_RangeSumQueryMutable_Test {
         assertThat(numArray.sumRange(3, 3)).isEqualTo(4);
     }
 
+    @Test void test_tree_is_updated_correctly() {
+        NumArray numArray = new NumArray($(1, 2, 3));
+
+        numArray.update(2, 5);
+        assertThat(numArray.tree).isEqualTo($(0, 8, 3, 5, 1, 2, 5, 0));
+    }
+
     private static int[] $(int... vals) {return vals;}
 
     // [x] Input boundaries: nums_len in [1..3*10^4], nums_i in [-100..100] => max sum forall_i 3*10^6 < INT_MAX_VAL
@@ -122,8 +129,8 @@ public class Task307_RangeSumQueryMutable_Test {
         public void update(int index, int val) {
             int idx = index + pow;
             tree[idx] = val;
-            idx -= (idx % 2);
             for (int p = pow; p > 1; p /= 2) {
+                idx -= (idx % 2);
                 tree[idx / 2] = tree[idx] + tree[idx + 1];
                 idx = idx / 2;
             }
