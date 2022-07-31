@@ -36,6 +36,13 @@ public class Task307_RangeSumQueryMutable_Test {
         assertThat(numArray.sumRange(0, 0)).isEqualTo(1);
         assertThat(numArray.sumRange(1, 1)).isEqualTo(2);
         assertThat(numArray.sumRange(2, 2)).isEqualTo(3);
+
+        numArray = new NumArray($(1, 2, 3, 4));
+
+        assertThat(numArray.sumRange(0, 0)).isEqualTo(1);
+        assertThat(numArray.sumRange(1, 1)).isEqualTo(2);
+        assertThat(numArray.sumRange(2, 2)).isEqualTo(3);
+        assertThat(numArray.sumRange(3, 3)).isEqualTo(4);
     }
 
     private static int[] $(int... vals) {return vals;}
