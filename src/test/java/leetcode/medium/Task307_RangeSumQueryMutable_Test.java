@@ -99,9 +99,9 @@ public class Task307_RangeSumQueryMutable_Test {
             tree[index] = tree[left(index)] + tree[right(index)];
         }
 
-        static int left(int index) {return 2 * index + 1;}
+        static int left(int index) {return 2 * index;}
 
-        static int right(int index) {return 2 * index + 2;}
+        static int right(int index) {return 2 * index + 1;}
 
         static int nextPowOfTwo(int val) {
             int pow = 1;
@@ -114,7 +114,7 @@ public class Task307_RangeSumQueryMutable_Test {
         }
 
         public int sumRange(int left, int right) {
-            return query(0, 0, n - 1, left, right);
+            return query(1, 0, n - 1, left, right);
         }
     }
 }
