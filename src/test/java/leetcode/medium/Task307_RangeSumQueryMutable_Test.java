@@ -112,8 +112,8 @@ public class Task307_RangeSumQueryMutable_Test {
 
         public void update(int index, int val) {
             int idx = index + pow;
-            idx -= (idx % 2);
             tree[idx] = val;
+            idx -= (idx % 2);
             for (int p = pow; p > 1; p /= 2) {
                 tree[idx / 2] = tree[idx] + tree[idx + 1];
                 idx = idx / 2;
