@@ -44,10 +44,11 @@ public class Task307_RangeSumQueryMutable_Test {
 
         public NumArray(int[] nums) {
             n = nums.length;
-            tree = new int[2 * nextPowOfTwo(n)];
+            int pow = nextPowOfTwo(n);
+            tree = new int[2 * pow];
 
-            System.arraycopy(nums, 0, tree, nextPowOfTwo(n) / 2, n);
-            for (int p = nextPowOfTwo(n) / 2; p > 0; p /= 2)
+            System.arraycopy(nums, 0, tree, pow / 2, n);
+            for (int p = pow / 2; p > 0; p /= 2)
                 for (int i = p; i < 2 * p; i += 2)
                     tree[i / 2] = tree[i] + tree[i + 1];
         }
