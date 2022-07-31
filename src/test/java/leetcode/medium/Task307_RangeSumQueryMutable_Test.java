@@ -24,7 +24,13 @@ public class Task307_RangeSumQueryMutable_Test {
         assertThat(numArray.sumRange(0, 1)).isEqualTo(0);
     }
 
-    @Test void test_tree_is_done_correctly() {
+    @Test void test_tree_is_built_correctly() {
+        NumArray numArray = new NumArray($(1, 2, 3));
+
+        assertThat(numArray.tree).isEqualTo($(0, 6, 3, 3, 1, 2, 3, 0));
+    }
+
+    @Test void test_one_range_request() {
         NumArray numArray = new NumArray($(1, 2, 3));
 
         assertThat(numArray.sumRange(0, 0)).isEqualTo(1);
@@ -47,8 +53,8 @@ public class Task307_RangeSumQueryMutable_Test {
             int pow = nextPowOfTwo(n);
             tree = new int[2 * pow];
 
-            System.arraycopy(nums, 0, tree, pow / 2, n);
-            for (int p = pow / 2; p > 0; p /= 2)
+            System.arraycopy(nums, 0, tree, pow, n);
+            for (int p = pow; p > 1; p /= 2)
                 for (int i = p; i < 2 * p; i += 2)
                     tree[i / 2] = tree[i] + tree[i + 1];
         }
@@ -104,7 +110,7 @@ public class Task307_RangeSumQueryMutable_Test {
         }
 
         public void update(int index, int val) {
-            update(0, 0, n - 1, index, val);
+            update(1, 0, n - 1, index, val);
         }
 
         public int sumRange(int left, int right) {
