@@ -86,16 +86,19 @@ public class Task307_RangeSumQueryMutable_Test {
     // [_] Complexity (time, memory):
     static
     class NumArray {
-        private final int n;
         private final int[] tree;
         private final int pow;
 
         public NumArray(int[] nums) {
-            n = nums.length;
+            int n = nums.length;
             pow = nextPowOfTwo(n);
             tree = new int[2 * pow];
 
-            System.arraycopy(nums, 0, tree, pow, n);
+            buildTreeBottomUp(nums);
+        }
+
+        private void buildTreeBottomUp(int[] nums) {
+            System.arraycopy(nums, 0, tree, pow, nums.length);
             for (int p = pow; p > 1; p /= 2)
                 for (int i = p; i < 2 * p; i += 2)
                     tree[i / 2] = tree[i] + tree[i + 1];
