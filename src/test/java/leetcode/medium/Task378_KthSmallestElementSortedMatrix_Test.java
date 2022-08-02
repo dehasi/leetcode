@@ -11,11 +11,20 @@ public class Task378_KthSmallestElementSortedMatrix_Test {
     private final Solution solution = new Solution();
 
     @Test void test1() {
-        assertThat(solution.kthSmallest($$(
-            $(1, 5, 9),
-            $(10, 11, 13),
-            $(12, 13, 15)), 8
-        )).isEqualTo(13);
+        int[][] matrix = {
+            {1, 5, 9},
+            {10, 11, 13},
+            {12, 13, 15}};
+
+        assertThat(solution.kthSmallest(matrix, 1)).isEqualTo(1);
+        assertThat(solution.kthSmallest(matrix, 2)).isEqualTo(5);
+        assertThat(solution.kthSmallest(matrix, 3)).isEqualTo(9);
+        assertThat(solution.kthSmallest(matrix, 4)).isEqualTo(10);
+        assertThat(solution.kthSmallest(matrix, 5)).isEqualTo(11);
+        assertThat(solution.kthSmallest(matrix, 6)).isEqualTo(12);
+        assertThat(solution.kthSmallest(matrix, 7)).isEqualTo(13);
+        assertThat(solution.kthSmallest(matrix, 8)).isEqualTo(13);
+        assertThat(solution.kthSmallest(matrix, 9)).isEqualTo(15);
     }
 
     private static int[] $(int... vals) {return vals;}
@@ -46,7 +55,7 @@ public class Task378_KthSmallestElementSortedMatrix_Test {
             int kth = -1;
             for (int j = 0; j < n; ++j) heap.add(new Triple(0, j, matrix[0][j]));
 
-            while (k-- > 0) {
+            while (k-- > 0 && !heap.isEmpty()) {
                 var cur = heap.poll();
                 kth = cur.val;
                 int i = cur.i;
