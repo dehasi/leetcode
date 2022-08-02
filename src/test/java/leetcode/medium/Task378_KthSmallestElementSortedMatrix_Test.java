@@ -52,38 +52,17 @@ public class Task378_KthSmallestElementSortedMatrix_Test {
             int n = matrix.length;
             PriorityQueue<Triple> heap = new PriorityQueue<>(n, Comparator.comparing(Triple::val));
 
-            int kth = -1;
-            for (int j = 0; j < n; ++j) heap.add(new Triple(0, j, matrix[0][j]));
+            int kth = matrix[0][0];
+            for (int i = 0; i < n; ++i) heap.add(new Triple(i, 0, matrix[i][0]));
 
-            while (k > 0 && !heap.isEmpty()) {
+            while (k-- > 0) {
                 var cur = heap.poll();
-                kth = cur.val;
-                int i = cur.i;
-                int j = cur.j + 1;
-                if (j < n) {
+                kth = cur.val; // not possible, because k <= n^2
+                int i = cur.i, j = cur.j + 1;
+                if (j < n)
                     heap.add(new Triple(i, j, matrix[i][j]));
-                    --k;
-                }
             }
             return kth;
-        }
-
-        class Heap {
-            final int size;
-            final int[] vals;
-            int index = 0;
-
-            Heap(int size) {
-                this.size = size;
-                int pow = nextPowOfTwo(size);
-                vals = new int[2 * pow];
-            }
-
-            private static int nextPowOfTwo(int val) {
-                int pow = 1;
-                while (pow < val) pow *= 2;
-                return pow;
-            }
         }
     }
 }
