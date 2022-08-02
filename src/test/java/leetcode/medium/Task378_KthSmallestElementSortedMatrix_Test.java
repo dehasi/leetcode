@@ -55,15 +55,14 @@ public class Task378_KthSmallestElementSortedMatrix_Test {
             int kth = -1;
             for (int j = 0; j < n; ++j) heap.add(new Triple(0, j, matrix[0][j]));
 
-            while (k-- > 0 && !heap.isEmpty()) {
+            while (k > 0 && !heap.isEmpty()) {
                 var cur = heap.poll();
                 kth = cur.val;
                 int i = cur.i;
                 int j = cur.j + 1;
-                if (j < n)
+                if (j < n) {
                     heap.add(new Triple(i, j, matrix[i][j]));
-                else {
-                    ++k;
+                    --k;
                 }
             }
             return kth;
