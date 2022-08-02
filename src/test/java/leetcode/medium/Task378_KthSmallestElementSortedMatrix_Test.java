@@ -33,7 +33,7 @@ public class Task378_KthSmallestElementSortedMatrix_Test {
 
     // [x] Input boundaries: square matrix, len n in [1..100] matrix[i][j] in [-10^9..10^9]; k in [1..n^2]
     // [x] Edge cases: n = 1, k = 1, k = n^2
-    // [_] Complexity (time, memory):
+    // [x] Complexity (time, memory): TC: n^2log(n) MC: O(n)
     static
     class Solution {
         public int kthSmallest(int[][] matrix, int k) {
@@ -53,14 +53,15 @@ public class Task378_KthSmallestElementSortedMatrix_Test {
             PriorityQueue<Triple> heap = new PriorityQueue<>(n, Comparator.comparing(Triple::val));
 
             int kth = matrix[0][0];
-            for (int i = 0; i < n; ++i) heap.add(new Triple(i, 0, matrix[i][0]));
+            for (int i = 0; i < n; ++i)  // O(n)?
+                heap.add(new Triple(i, 0, matrix[i][0]));
 
-            while (k-- > 0) {
-                var cur = heap.poll();
+            while (k-- > 0) { // k log(n)
+                var cur = heap.poll(); //const
                 kth = cur.val; // not possible, because k <= n^2
                 int i = cur.i, j = cur.j + 1;
                 if (j < n)
-                    heap.add(new Triple(i, j, matrix[i][j]));
+                    heap.add(new Triple(i, j, matrix[i][j])); // log
             }
             return kth;
         }
