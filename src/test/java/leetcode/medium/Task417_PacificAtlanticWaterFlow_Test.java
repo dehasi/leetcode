@@ -59,7 +59,6 @@ public class Task417_PacificAtlanticWaterFlow_Test {
     static
     class Solution {
         public List<List<Integer>> pacificAtlantic(int[][] heights) {
-
             int n = heights.length, m = heights[0].length;
 
             boolean[][] pacific = new boolean[n][m];
@@ -92,11 +91,10 @@ public class Task417_PacificAtlanticWaterFlow_Test {
 
             visited[i][j] = true;
 
-            for (int[] d : dir) {
-                int di = i + d[0];
-                int dj = j + d[1];
-                dfs(di, dj, heights, visited, heights[i][j]);
-            }
+            dfs(i - 1, j, heights, visited, heights[i][j]);
+            dfs(i, j - 1, heights, visited, heights[i][j]);
+            dfs(i + 1, j, heights, visited, heights[i][j]);
+            dfs(i, j + 1, heights, visited, heights[i][j]);
         }
     }
 }
