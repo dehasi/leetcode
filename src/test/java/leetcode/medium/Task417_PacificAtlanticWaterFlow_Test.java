@@ -32,9 +32,9 @@ public class Task417_PacificAtlanticWaterFlow_Test {
     // [_] Complexity (time, memory):
     static
     class Solution {
-        final byte none = 0, pacific = 1, atlantic = 2, both = 3;
 
         public List<List<Integer>> pacificAtlantic(int[][] heights) {
+            final byte none = 0, pacific = 1, atlantic = 2, both = 3;
             int n = heights.length, m = heights[0].length;
             byte[][] flows = new byte[n][m];
 
