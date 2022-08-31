@@ -37,6 +37,18 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             $(0, 0));
     }
 
+    @Test void test3() {
+        int[][] heights = {
+            {10, 10, 10},
+            {10, 1, 10},
+            {10, 10, 10}};
+
+        assertThat(solution.pacificAtlantic(heights)).containsExactlyInAnyOrder(
+            $(0, 0), $(0, 1), $(0, 2),
+            $(1, 0),  /**/    $(1, 2),
+            $(2, 0), $(2, 1), $(2, 2));
+    }
+
     List<Integer> $(int x, int y) {
         return Arrays.asList(x, y);
     }
