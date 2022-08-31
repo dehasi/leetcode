@@ -23,6 +23,20 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             $(0, 4), $(1, 3), $(1, 4), $(2, 2), $(3, 0), $(3, 1), $(4, 0));
     }
 
+    @Test void test2() {
+        int[][] heights = {{1}, {4}, {5}};
+        assertThat(solution.pacificAtlantic(heights)).containsExactlyInAnyOrder(
+            $(0, 0), $(1, 0), $(2, 0));
+
+        int[][] heights2 = {{1, 2, 3}};
+        assertThat(solution.pacificAtlantic(heights2)).containsExactlyInAnyOrder(
+            $(0, 0), $(0, 1), $(0, 2));
+
+        int[][] heights3 = {{1}};
+        assertThat(solution.pacificAtlantic(heights3)).containsExactlyInAnyOrder(
+            $(0, 0));
+    }
+
     List<Integer> $(int x, int y) {
         return Arrays.asList(x, y);
     }
@@ -39,15 +53,15 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             int n = heights.length, m = heights[0].length;
             byte[][] flows = new byte[n][m];
 
-//            Arrays.fill(flows[0], pacific);
-//            Arrays.fill(flows[n - 1], atlantic);
-//            for (int r = 0; r < n; ++r) {
-//                flows[r][0] = pacific;
-//                flows[r][m - 1] = atlantic;
-//            }
-//
-//            flows[0][n - 1] = both;
-//            flows[m - 1][0] = both;
+            //            Arrays.fill(flows[0], pacific);
+            //            Arrays.fill(flows[n - 1], atlantic);
+            //            for (int r = 0; r < n; ++r) {
+            //                flows[r][0] = pacific;
+            //                flows[r][m - 1] = atlantic;
+            //            }
+            //
+            //            flows[0][n - 1] = both;
+            //            flows[m - 1][0] = both;
 
             for (int i = 0; i < heights.length; ++i) {
                 for (int j = 0; j < heights[0].length; ++j) {
