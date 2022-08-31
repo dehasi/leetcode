@@ -52,7 +52,7 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             for (int i = 0; i < heights.length; ++i) {
                 for (int j = 0; j < heights[0].length; ++j) {
                     if (flows[i][j] == not_visited)
-                        flows[i][j] = dfs(i, j, heights, flows, -1);
+                        flows[i][j] = dfs(i, j, heights, flows, 1000000);
                 }
             }
             List<List<Integer>> result = new ArrayList<>();
@@ -73,14 +73,26 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             if (heights[i][i] > parent) return none;
             flows[i][j] = none;
 
-            byte max = none;
+            byte result = none, a = 0, p = 0;
 
-            max = (byte)Math.max(max, dfs(i + 1, j, heights, flows, heights[i][j]));
-            max = (byte)Math.max(max, dfs(i, j + 1, heights, flows, heights[i][j]));
-            max = (byte)Math.max(max, dfs(i - 1, j, heights, flows, heights[i][j]));
-            max = (byte)Math.max(max, dfs(i, j - 1, heights, flows, heights[i][j]));
+            result = dfs(i + 1, j, heights, flows, heights[i][j]);
+            if (result == pacific) ++p;
+            if (result == atlantic) ++a;
+            result = dfs(i, j + 1, heights, flows, heights[i][j]);
+            if (result == pacific) ++p;
+            if (result == atlantic) ++a;
+            result = dfs(i - 1, j, heights, flows, heights[i][j]);
+            if (result == pacific) ++p;
+            if (result == atlantic) ++a;
+            result = dfs(i, j - 1, heights, flows, heights[i][j]);
+            if (result == pacific) ++p;
+            if (result == atlantic) ++a;
 
-            return max;
+            if (a == 0 && p == 0) return none;
+            if (a == 0 && p == 1) return pacific;
+            if (a == 1 && p == 0) return atlantic;
+            if (a == 1 && p == 1) return both;
+            return -54;
         }
     }
 }
