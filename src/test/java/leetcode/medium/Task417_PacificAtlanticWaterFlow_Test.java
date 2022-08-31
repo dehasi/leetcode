@@ -55,25 +55,24 @@ public class Task417_PacificAtlanticWaterFlow_Test {
 
     // [x] Input boundaries: m,n in [1..100], heights[r][c] in [0..10^5]
     // [x] Edge cases: 1x1, mx1, 1xn
-    // [_] Complexity (time, memory):
+    // [x] Complexity (time, memory): O(nxm)
     static
     class Solution {
         public List<List<Integer>> pacificAtlantic(int[][] heights) {
 
             int n = heights.length, m = heights[0].length;
-            byte[][] flows = new byte[n][m];
 
             boolean[][] pacific = new boolean[n][m];
             boolean[][] atlantic = new boolean[n][m];
 
             for (int i = 0; i < n; ++i) {
-                dfs(i, 0, heights, pacific);
-                dfs(i, m - 1, heights, atlantic);
+                dfs(i, 0, heights, pacific, 0);
+                dfs(i, m - 1, heights, atlantic, 0);
             }
 
             for (int j = 0; j < m; ++j) {
-                dfs(0, j, heights, pacific);
-                dfs(n - 1, j, heights, atlantic);
+                dfs(0, j, heights, pacific, 0);
+                dfs(n - 1, j, heights, atlantic, 0);
             }
 
             List<List<Integer>> result = new ArrayList<>();
@@ -87,18 +86,16 @@ public class Task417_PacificAtlanticWaterFlow_Test {
 
         private final int[][] dir = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 
-        private void dfs(int i, int j, int[][] heights, boolean[][] visited) {
+        private void dfs(int i, int j, int[][] heights, boolean[][] visited, int parent) {
+            if (i < 0 || j < 0 || i >= visited.length || j >= visited[i].length || visited[i][j]) return;
+            if (parent > heights[i][j]) return;
+
             visited[i][j] = true;
 
             for (int[] d : dir) {
                 int di = i + d[0];
                 int dj = j + d[1];
-                if (di < 0 || dj < 0
-                    || di >= visited.length || dj >= visited[i].length
-                    || visited[di][dj]) continue;
-
-                if (heights[di][dj] >= heights[i][j])
-                    dfs(di, dj, heights, visited);
+                dfs(di, dj, heights, visited, heights[i][j]);
             }
         }
     }
