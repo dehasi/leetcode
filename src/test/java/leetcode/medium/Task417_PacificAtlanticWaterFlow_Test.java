@@ -39,18 +39,18 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             int n = heights.length, m = heights[0].length;
             byte[][] flows = new byte[n][m];
 
-            Arrays.fill(flows[0], pacific);
-            Arrays.fill(flows[n - 1], atlantic);
-            for (int r = 0; r < n; ++r) {
-                flows[r][0] = pacific;
-                flows[r][m - 1] = atlantic;
-            }
+//            Arrays.fill(flows[0], pacific);
+//            Arrays.fill(flows[n - 1], atlantic);
+//            for (int r = 0; r < n; ++r) {
+//                flows[r][0] = pacific;
+//                flows[r][m - 1] = atlantic;
+//            }
+//
+//            flows[0][n - 1] = both;
+//            flows[m - 1][0] = both;
 
-            flows[0][n - 1] = both;
-            flows[m - 1][0] = both;
-
-            for (int i = 1; i < heights.length - 1; ++i) {
-                for (int j = 1; j < heights[0].length - 1; ++j) {
+            for (int i = 0; i < heights.length; ++i) {
+                for (int j = 0; j < heights[0].length; ++j) {
                     if (flows[i][j] == not_visited)
                         flows[i][j] = dfs(i, j, heights, flows, 1000000);
                 }
@@ -70,7 +70,7 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             if (i >= heights.length) return atlantic;
             if (j >= heights[i].length) return atlantic;
             if (flows[i][j] != 0) return flows[i][j];
-            if (heights[i][i] > parent) return none;
+            if (heights[i][j] > parent) return none;
             flows[i][j] = none;
             byte result = 0, a = 0, p = 0;
 
