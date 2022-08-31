@@ -49,8 +49,8 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             flows[m - 1][0] = both;
 
             // fill pacific
-            for (int r = 1; r < n; ++r) {
-                for (int c = 1; c < m; ++c) {
+            for (int r = 1; r < n-1; ++r) {
+                for (int c = 1; c < m-1; ++c) {
                     int cur = heights[r][c];
                     if (cur >= heights[r - 1][c]) flows[r][c] = flows[r - 1][c];
                     if (cur >= heights[r][c - 1]) flows[r][c] = (byte)Math.max(flows[r][c], flows[r][c - 1]);
