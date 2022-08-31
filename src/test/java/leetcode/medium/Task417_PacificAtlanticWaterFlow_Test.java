@@ -32,9 +32,10 @@ public class Task417_PacificAtlanticWaterFlow_Test {
     // [_] Complexity (time, memory):
     static
     class Solution {
+        final byte not_visited = 0, none = 1, pacific = 2, atlantic = 3, both = 4;
 
         public List<List<Integer>> pacificAtlantic(int[][] heights) {
-            final byte none = 0, pacific = 1, atlantic = 2, both = 3;
+
             int n = heights.length, m = heights[0].length;
             byte[][] flows = new byte[n][m];
 
@@ -48,32 +49,12 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             flows[0][n - 1] = both;
             flows[m - 1][0] = both;
 
-            // fill pacific
-            for (int r = 1; r < n - 1; ++r) {
-                for (int c = 1; c < m - 1; ++c) {
-                    int cur = heights[r][c];
-                    if (cur >= heights[r - 1][c]) flows[r][c] = flows[r - 1][c];
-                    if (cur >= heights[r][c - 1]) flows[r][c] = (byte)Math.max(flows[r][c], flows[r][c - 1]);
+            for (int i = 0; i < heights.length; ++i) {
+                for (int j = 0; j < heights[0].length; ++j) {
+                    if (flows[i][j] == not_visited)
+                        flows[i][j] = dfs(i, j, heights, flows, -1);
                 }
             }
-
-            // fill atlantic & both
-            for (int r = n - 2; r >= 0; --r) {
-                for (int c = m - 2; c >= 0; --c) {
-                    int cur = heights[r][c];
-                    if (cur >= heights[r][c + 1]) {
-                        if (flows[r][c + 1] == pacific || flows[r][c + 1] == both)
-                            flows[r][c] = both;
-                        else flows[r][c] = atlantic;
-                    }
-                    if (cur >= heights[r + 1][c]) {
-                        if (flows[r + 1][c] == pacific || flows[r + 1][c] == both)
-                            flows[r][c] = both;
-                        else flows[r][c] = atlantic;
-                    }
-                }
-            }
-
             List<List<Integer>> result = new ArrayList<>();
             for (int r = 0; r < n; ++r)
                 for (int c = 0; c < m; ++c)
@@ -81,6 +62,25 @@ public class Task417_PacificAtlanticWaterFlow_Test {
                         result.add(Arrays.asList(r, c));
 
             return result;
+        }
+
+        byte dfs(int i, int j, int[][] heights, byte[][] flows, int parent) {
+            if (i < 0) return pacific;
+            if (j < 0) return pacific;
+            if (i > heights.length) return atlantic;
+            if (j > heights[i].length) return atlantic;
+            if (flows[i][j] != 0) return flows[i][j];
+            if (heights[i][i] > parent) return none;
+            flows[i][j] = none;
+
+            byte max = none;
+
+            max = (byte)Math.max(max, dfs(i + 1, j, heights, flows, heights[i][j]));
+            max = (byte)Math.max(max, dfs(i, j + 1, heights, flows, heights[i][j]));
+            max = (byte)Math.max(max, dfs(i - 1, j, heights, flows, heights[i][j]));
+            max = (byte)Math.max(max, dfs(i, j - 1, heights, flows, heights[i][j]));
+
+            return max;
         }
     }
 }
