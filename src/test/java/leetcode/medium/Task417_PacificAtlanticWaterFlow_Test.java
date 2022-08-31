@@ -49,8 +49,8 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             flows[0][n - 1] = both;
             flows[m - 1][0] = both;
 
-            for (int i = 1; i < heights.length-1; ++i) {
-                for (int j = 1; j < heights[0].length-1; ++j) {
+            for (int i = 1; i < heights.length - 1; ++i) {
+                for (int j = 1; j < heights[0].length - 1; ++j) {
                     if (flows[i][j] == not_visited)
                         flows[i][j] = dfs(i, j, heights, flows, 1000000);
                 }
@@ -71,30 +71,30 @@ public class Task417_PacificAtlanticWaterFlow_Test {
             if (j >= heights[i].length) return atlantic;
             if (flows[i][j] != 0) return flows[i][j];
             if (heights[i][i] > parent) return none;
-
+            flows[i][j] = none;
             byte result = 0, a = 0, p = 0;
 
             result = dfs(i + 1, j, heights, flows, heights[i][j]);
             if (result == pacific) ++p;
             if (result == atlantic) ++a;
-            if (result == both){ ++a;++p;}
+            if (result == both) {++a; ++p;}
             result = dfs(i, j + 1, heights, flows, heights[i][j]);
             if (result == pacific) ++p;
             if (result == atlantic) ++a;
-            if (result == both){ ++a;++p;}
+            if (result == both) {++a; ++p;}
             result = dfs(i - 1, j, heights, flows, heights[i][j]);
             if (result == pacific) ++p;
             if (result == atlantic) ++a;
-            if (result == both){ ++a;++p;}
+            if (result == both) {++a; ++p;}
             result = dfs(i, j - 1, heights, flows, heights[i][j]);
             if (result == pacific) ++p;
             if (result == atlantic) ++a;
-            if (result == both){ ++a;++p;}
+            if (result == both) {++a; ++p;}
 
-            if (a == 0 && p == 0) return none;
-            if (a == 0 && p > 0) return pacific;
-            if (a > 0 && p == 0) return atlantic;
-            if (a > 0 && p > 0) return both;
+            if (a == 0 && p == 0) return flows[i][j] = none;
+            if (a == 0 && p > 0) return flows[i][j] = pacific;
+            if (a > 0 && p == 0) return flows[i][j] = atlantic;
+            if (a > 0 && p > 0) return flows[i][j] = both;
             return -54;
         }
     }
