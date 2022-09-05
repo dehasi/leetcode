@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task987_VerticalOrderTraversalOfBinaryTree_Test {
@@ -68,12 +68,13 @@ public class Task987_VerticalOrderTraversalOfBinaryTree_Test {
             dfs(root, 0, 0, levels);
 
             return levels.keySet().stream()
-                .sorted().map(key ->
-                    levels.get(key).stream()
-                        .sorted()
-                        .map(p -> p.val)
-                        .collect(Collectors.toList())
-                ).collect(Collectors.toList());
+                .sorted()
+                .map(levels::get)
+                .map(list -> list.stream()
+                    .sorted()
+                    .map(p -> p.val)
+                    .collect(toList())
+                ).collect(toList());
         }
 
         private void dfs(TreeNode root, int x, int y, Map<Integer, List<Pair>> levels) {
