@@ -100,8 +100,7 @@ public class Task987_VerticalOrderTraversalOfBinaryTree_Test {
             }
 
             @Override public boolean equals(Object o) {
-                if (o == null || !(o instanceof Pair)) return false;
-                Pair that = (Pair)o;
+                if (!(o instanceof Pair that)) return false;
                 return this.compareTo(that) == 0;
             }
 
