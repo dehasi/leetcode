@@ -57,21 +57,21 @@ public class Task987_VerticalOrderTraversalOfBinaryTree_Test {
         }
     }
 
-    // [_] Input boundaries:
-    // [_] Edge cases:
-    // [_] Complexity (time, memory):
+    // [x] Input boundaries: count(TreeNode) in [1..1000]; TreeNode.val in [0..1000]
+    // [x] Edge cases: both vals at the same coordinate;
+    // [_] Complexity (time, memory): TC = O(n*log(n)), MC = O(n)
     static
     class Solution {
         public List<List<Integer>> verticalTraversal(TreeNode root) {
             Map<Integer, List<Pair>> levels = new HashMap<>();
 
-            dfs(root, 0, 0, levels);
+            dfs(root, 0, 0, levels); // O(n)
 
             return levels.keySet().stream()
-                .sorted()
+                .sorted() // O(width(root);
                 .map(levels::get)
                 .map(list -> list.stream()
-                    .sorted()
+                    .sorted() // O(height(root);
                     .map(p -> p.val)
                     .collect(toList())
                 ).collect(toList());
