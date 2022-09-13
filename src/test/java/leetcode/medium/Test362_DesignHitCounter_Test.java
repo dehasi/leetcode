@@ -1,8 +1,7 @@
 package leetcode.medium;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,35 +22,21 @@ public class Test362_DesignHitCounter_Test {
 
     // [x] Input boundaries: timestamp in [1..2*10^9] => whole positive int.
     // [x] Edge cases: Several hits may happen at the same timestamp.
-    // [_] Complexity (time, memory): TC = O(logN), MC = O(hits).
+    // [x] Complexity (time, memory): TC = O*(1), MC = O(hits).
     static
     class HitCounter {
-        private final Map<Integer, Integer> map = new HashMap<>();
-        private final TreeSet<Integer> set = new TreeSet<>();
+        private final Queue<Integer> queue = new LinkedList<>(); // faster than ArrayDeque according to leetcode
 
-        public void hit(int timestamp) { // logN
-            map.put(timestamp, map.getOrDefault(timestamp, 0) + 1); // // const
-            set.add(timestamp); // logN
+        public void hit(int timestamp) {
+            queue.add(timestamp);
         }
 
-        public int getHits(int timestamp) { // logN
-            int fiveMinAgo = subtract5minFrom(timestamp);
-
-            Integer from = set.ceiling(fiveMinAgo); // logN
-            if (from == null) return 0;
-
-            Integer to = set.floor(timestamp); // logN
-            if (to == null || to < fiveMinAgo) return 0;
-
-            int result = 0;
-            for (int key = from; key <= to; ++key) // max 300 => const
-                result += map.getOrDefault(key, 0); // const
-            return result;
-        }
-
-        private int subtract5minFrom(int timestamp) {
-            final int fiveMin = 60 * 5;
-            return fiveMin > timestamp ? 0 : timestamp - fiveMin + 1;
+        public int getHits(int timestamp) {
+            while (!queue.isEmpty()) {
+                if (timestamp - queue.peek() >= 300) queue.poll();
+                else break;
+            }
+            return queue.size();
         }
     }
 }
