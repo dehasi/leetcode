@@ -1,5 +1,6 @@
 package leetcode.medium;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,11 +57,9 @@ public class Task1457_PseudoPalindromicPathsInBinaryTree_Test {
         }
 
         private boolean isPalindrome(int[] frequencies) {
-            int oddCount = 0;
-            for (int val : frequencies)
-                if (val % 2 == 1)
-                    ++oddCount;
-            return oddCount <= 1;
+            return Arrays.stream(frequencies)
+                .filter(x -> x %2 == 0)
+                .count() <= 1;
         }
     }
 }
