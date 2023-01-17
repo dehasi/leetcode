@@ -28,7 +28,19 @@ public class Task926_FlipStringToMonotoneIncreasing_Test {
                 else ++ones;
             }
             if (ones == 0 || zeros == 0) return 0;
-            return -1;
+            return flips(0, s, '0');
+        }
+
+        private int flips(int index, String string, char prev) {
+            if (string.length() == index) return 0;
+            if (prev < string.charAt(index)) {
+                return flips(index + 1, string, string.charAt(index));
+            } else {
+                return 1 + Math.min(
+                        flips(index + 1, string, string.charAt(index)),
+                        flips(index + 1, string, prev)
+                );
+            }
         }
     }
 }
