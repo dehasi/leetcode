@@ -33,12 +33,12 @@ public class Task926_FlipStringToMonotoneIncreasing_Test {
 
         private int flips(int index, String string, char prev) {
             if (string.length() == index) return 0;
-            if (prev < string.charAt(index)) {
+            if (prev <= string.charAt(index)) {
                 return flips(index + 1, string, string.charAt(index));
             } else {
                 return 1 + Math.min(
-                        flips(index + 1, string, string.charAt(index)),
-                        flips(index + 1, string, prev)
+                        flips(index + 1, string, '0'),
+                        flips(index + 1, string, '1')
                 );
             }
         }
