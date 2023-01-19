@@ -22,7 +22,7 @@ public class Task974_SubarraySumsDivisibleByK_Test {
     //      sum(num) = 3*10^4*10^4 = 3*10^8
     //      max(int) ~ 2^31 ~ 2*2^10*2^10*2^10 ~ (2^10 ~> 10^3) 2*10^3*10^3*10^3 ~ 2*10^9 ~ 20*10^8
     //      sum(num) << max(int)
-    // [z] Edge cases: len(nums) == 0, len(nums) == 1.
+    // [x] Edge cases: len(nums) == 0, len(nums) == 1. sum(num) < k; sum(num)== 0;
     // [_] Complexity (time, memory):
     static
     class Solution {
@@ -48,3 +48,14 @@ public class Task974_SubarraySumsDivisibleByK_Test {
         }
     }
 }
+
+/*
+         v_____v
+      v_____v
+   v_____v
+  [1, 2, 3, 4, 5, 6, 7, 8]
+   ^________^
+      ^________^
+         ^________^
+            ^________^
+* */
