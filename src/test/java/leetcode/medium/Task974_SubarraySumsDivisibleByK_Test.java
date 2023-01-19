@@ -28,8 +28,8 @@ public class Task974_SubarraySumsDivisibleByK_Test {
     class Solution {
         public int subarraysDivByK(int[] nums, int k) {
             int[] prefixSum = new int[nums.length]; // MC = O(n)
-            prefixSum[0] = nums[0];
 
+            prefixSum[0] = nums[0];
             for (int i = 1; i < nums.length; ++i) { // O(n)
                 prefixSum[i] = prefixSum[i - 1] + nums[i];
             }
