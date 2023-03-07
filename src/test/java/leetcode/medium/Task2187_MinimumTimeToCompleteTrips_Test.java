@@ -30,15 +30,15 @@ public class Task2187_MinimumTimeToCompleteTrips_Test {
             for (int i = 0; i < time.length; ++i)
                 min = Math.min(min, time[i]);
 
-            long ans = -1, l = min, r = min * totalTrips;
+            long ans = -1, l = min, r = min * totalTrips + 1;
 
-            while (l <= r) {
+            while (l < r) {
                 long midTime = l + (r - l) / 2;
                 long trips = tripsForTime(midTime, time);
                 if (trips < totalTrips) l = midTime + 1;
                 else {
                     ans = midTime;
-                    r = midTime - 1;
+                    r = midTime;
                 }
             }
 
