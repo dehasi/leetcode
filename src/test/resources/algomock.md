@@ -39,3 +39,9 @@ determine if a person could attend all meetings.
 
 Fri: 17-19; Sat: 10-19; Sun: 10-19; Mon: 17-19; Tue: 17-19; Wed: 17-19; Thu: -;
 
+21:15 UTC -> 23:15 me
+
+Fri: 15-20; Sat: 8-13; Sun: 8-13,18-21; Mon: 16-20; Tue: -; Wed: 15-20; Thu: -;
+
+
+
