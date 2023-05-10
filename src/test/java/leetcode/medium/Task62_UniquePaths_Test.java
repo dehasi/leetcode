@@ -26,7 +26,7 @@ public class Task62_UniquePaths_Test {
 
     // [x] Input boundaries: m,n in [1..100]
     // [x] Edge cases: n == 1 or m == 1 or both
-    // [x] Complexity (time, memory): TC = O(m*n) MC = O(m*n)
+    // [x] Complexity (time, memory): TC = O(m*n) MC = O(m*n); recursion stack = O(n+m)
     static
     class Solution {
         public int uniquePaths(int m, int n) {
@@ -43,7 +43,7 @@ public class Task62_UniquePaths_Test {
         }
 
 
-        private int uniquePaths_suboptimal(int m, int n) {
+        private int uniquePaths_suboptimal(int m, int n) { // TC = O(2^(n+m))
             if (m == 1 || n == 1) return 1;
 
             return uniquePaths(m - 1, n) + uniquePaths(m, n - 1);
