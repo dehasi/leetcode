@@ -43,7 +43,7 @@ public class Task62_UniquePaths_Test {
         }
 
 
-        private int uniquePaths_suboptimal(int m, int n) { // TC = O(2^(n+m))
+        private int uniquePaths_suboptimal(int m, int n) { // TC = O(2^(n+m)), MC = O(n+m)
             if (m == 1 || n == 1) return 1;
 
             return uniquePaths(m - 1, n) + uniquePaths(m, n - 1);
