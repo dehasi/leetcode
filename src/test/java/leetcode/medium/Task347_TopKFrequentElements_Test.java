@@ -25,7 +25,7 @@ public class Task347_TopKFrequentElements_Test {
 
     // [x] Input boundaries: len(nums) in [1..10^5], nums[i] in [-10^4..10^4], k in [1..uniq-elems]
     // [x] Edge cases: k = len(nums), nums = [1, 2] k = 2
-    // [_] Complexity (time, memory):
+    // [x] Complexity (time, memory): Time: O(nlogn) Memory; O(n)
     static
     class Solution {
         public int[] topKFrequent(int[] nums, int k) {
